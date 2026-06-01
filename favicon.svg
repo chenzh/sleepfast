@@ -1,0 +1,20 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="18" fill="#0B1220"/>
+  <circle cx="32" cy="36" r="20" fill="url(#faceGlow)" fill-opacity="0.95"/>
+  <path d="M19 24L27 12L31 26L19 24Z" fill="#9BC5FF" fill-opacity="0.9"/>
+  <path d="M45 24L37 12L33 26L45 24Z" fill="#9BC5FF" fill-opacity="0.9"/>
+  <path d="M22 34C24.5 31.5 28 31.5 30.5 34" stroke="#EEF4FF" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M33.5 34C36 31.5 39.5 31.5 42 34" stroke="#EEF4FF" stroke-width="3.2" stroke-linecap="round"/>
+  <path d="M30 39.5C31.2 41 32.8 41 34 39.5" stroke="#D7E6FF" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M25 43C29.5 45.8 34.5 45.8 39 43" stroke="#D7E6FF" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M18 40.5H8" stroke="#7DA8E8" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.7"/>
+  <path d="M19 44.5H9.5" stroke="#7DA8E8" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.55"/>
+  <path d="M46 40.5H56" stroke="#7DA8E8" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.7"/>
+  <path d="M45 44.5H54.5" stroke="#7DA8E8" stroke-width="2.2" stroke-linecap="round" stroke-opacity="0.55"/>
+  <defs>
+    <radialGradient id="faceGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(32 30) rotate(90) scale(28)">
+      <stop stop-color="#1C2C46"/>
+      <stop offset="1" stop-color="#121B2B"/>
+    </radialGradient>
+  </defs>
+</svg>
