@@ -257,6 +257,32 @@ button {
   font-size: 1.03rem;
 }
 
+.result-line {
+  margin: 14px 0 0;
+  max-width: 42ch;
+  color: rgba(238, 244, 255, 0.9);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.result-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.result-pills span {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 8px 12px;
+  border: 1px solid rgba(188, 213, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(232, 239, 255, 0.76);
+  font-size: 0.86rem;
+}
+
 .quiet-line {
   margin: 20px 0 0;
   color: rgba(227, 236, 255, 0.58);

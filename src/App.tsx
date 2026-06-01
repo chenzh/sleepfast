@@ -328,6 +328,14 @@ const App = () => {
               <p className="hero-text">
                 Press play and let the rain stay with you until the night stops feeling so loud.
               </p>
+              <p className="result-line">
+                Built to help you fall asleep faster tonight — and restart sleep faster after night waking.
+              </p>
+              <div className="result-pills" aria-label="Sleepfast outcomes">
+                <span>Browser-first sleep sounds</span>
+                <span>For racing thoughts</span>
+                <span>For 3 AM wakeups</span>
+              </div>
 
               <div className="cta-row">
                 <button type="button" onClick={() => void handleTogglePlayback()}>
