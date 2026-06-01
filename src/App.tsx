@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import CatMark from './catMark'
 
 type SoundId = 'rain' | 'ocean' | 'brown' | 'white'
 type TimerOption = 10 | 20 | 30 | 45
@@ -294,6 +295,15 @@ const App = () => {
   return (
     <main className="app-shell">
       <section className="rain-stage">
+        <div className="top-brandbar">
+          <div className="brand-lockup" aria-label="Sleepfast brand">
+            <CatMark className="brand-cat" />
+            <div className="brand-copy">
+              <span className="brand-name">Sleepfast</span>
+              <span className="brand-tag">a softer room for tonight</span>
+            </div>
+          </div>
+        </div>
         <div className="rain-backdrop" aria-hidden="true">
           <div className="night-vignette" />
           <div className="mist mist-left" />
@@ -322,7 +332,12 @@ const App = () => {
         <div className="hero-layout">
           <section className="story-panel">
             <div className="story-copy glass-panel">
-              <span className="eyebrow">Rain at the window</span>
+              <div className="hero-badge-row">
+                <span className="eyebrow">Rain at the window</span>
+                <div className="hero-cat-badge" aria-label="Sleepfast cat mark">
+                  <CatMark className="hero-cat" />
+                </div>
+              </div>
               <p className="micro-copy">Quiet enough for the last few thoughts of the day to fade.</p>
               <h1>When the room softens, sleep feels closer.</h1>
               <p className="hero-text">

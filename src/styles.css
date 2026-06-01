@@ -53,6 +53,52 @@ button {
   padding: 28px 0 0;
 }
 
+.top-brandbar {
+  position: relative;
+  z-index: 2;
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  padding: 0 0 8px;
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(7, 12, 20, 0.34);
+  border: 1px solid rgba(192, 218, 255, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.brand-cat {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.brand-copy {
+  display: grid;
+  gap: 2px;
+}
+
+.brand-name {
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #f2f6ff;
+}
+
+.brand-tag {
+  font-size: 0.8rem;
+  color: rgba(223, 233, 250, 0.66);
+}
+
 .rain-backdrop {
   position: absolute;
   inset: 0;
@@ -217,6 +263,36 @@ button {
   padding: 7px 13px;
   background: rgba(218, 230, 255, 0.06);
   color: #dde8ff;
+}
+
+.hero-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.hero-badge-row .eyebrow {
+  margin-bottom: 0;
+}
+
+.hero-cat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  padding: 8px;
+  border-radius: 24px;
+  background: radial-gradient(circle at 50% 28%, rgba(141, 183, 255, 0.18), rgba(11, 18, 32, 0.9));
+  border: 1px solid rgba(193, 218, 255, 0.1);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24);
+}
+
+.hero-cat {
+  width: 100%;
+  height: 100%;
 }
 
 .micro-copy {
@@ -650,6 +726,30 @@ button {
 @media (max-width: 720px) {
   .app-shell {
     padding: 0 14px 20px;
+  }
+
+  .top-brandbar {
+    padding-bottom: 4px;
+  }
+
+  .brand-lockup {
+    gap: 10px;
+    padding: 9px 12px;
+  }
+
+  .brand-cat {
+    width: 34px;
+    height: 34px;
+  }
+
+  .hero-badge-row {
+    align-items: flex-start;
+  }
+
+  .hero-cat-badge {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
   }
 
   .story-copy,
