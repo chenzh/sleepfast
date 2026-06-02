@@ -610,17 +610,17 @@ const App = () => {
                   <CatMark className="hero-cat" />
                 </div>
               </div>
-              <p className="micro-copy">For the few minutes when the house is quiet, but your mind still isn't.</p>
+              <p className="micro-copy">Built to help you fall asleep faster tonight — and restart sleep faster after a rough 3 AM wake-up.</p>
               <h1>Come back to the softest part of the night.</h1>
               <p className="hero-text">
-                Let one gentle sound stay in the room long enough for your breathing to slow and your thoughts to stop asking so much of you.
+                Sleepfast gives you instant browser-based sleep sounds for racing thoughts, noisy rooms, and the fragile stretch between feeling tired and actually drifting off.
               </p>
               <p className="result-line">
-                Not a sleep system to manage — just one calm companion for the tender stretch between being tired and actually drifting off.
+                Not another sleep system to manage — just a calmer way to fall asleep faster, stay less reactive to noise, and gently settle back down when sleep breaks.
               </p>
               <div className="result-pills result-pills-minimal" aria-label="Sleepfast outcomes">
-                <span>One-tap calm</span>
-                <span>For hard-to-settle nights</span>
+                <span>Fall asleep faster tonight</span>
+                <span>Restart sleep after wake-ups</span>
               </div>
 
               <div className="cta-row cta-row-single">
