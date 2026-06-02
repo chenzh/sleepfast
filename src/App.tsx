@@ -2395,6 +2395,44 @@ const App = () => {
                   <p>Choose the slower shoreline when your body is calmer and you want a longer drift without switching tracks again.</p>
                 </button>
               </div>
+
+              <div className="saved-panel glass-subpanel">
+                <div className="saved-panel-section">
+                  <div className="saved-panel-header">
+                    <strong>Saved follow-ups</strong>
+                    <span>Jump back into the sound that usually works after breathing.</span>
+                  </div>
+                  <div className="saved-chip-row">
+                    {favoriteSounds.length > 0 ? (
+                      favoriteSounds.map((sound) => (
+                        <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                          {sound.name}
+                        </button>
+                      ))
+                    ) : (
+                      <p className="saved-empty-state">Save a sound on the homepage or a sound page, then restart it here after your breathing reset.</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="saved-panel-section">
+                  <div className="saved-panel-header">
+                    <strong>Recent after-breathing restarts</strong>
+                    <span>Keep the last room you used one tap away.</span>
+                  </div>
+                  <div className="saved-chip-row">
+                    {recentSounds.length > 0 ? (
+                      recentSounds.map((sound) => (
+                        <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                          {sound.name}
+                        </button>
+                      ))
+                    ) : (
+                      <p className="saved-empty-state">Once you follow breathing with a sound, it will show up here for a faster reset next time.</p>
+                    )}
+                  </div>
+                </div>
+              </div>
             </aside>
           </div>
         </section>
@@ -3433,6 +3471,16 @@ const App = () => {
                 </p>
               </div>
 
+              <div className="utility-row utility-row-saved">
+                <button
+                  type="button"
+                  className={`utility-chip ${favoriteSoundIds.includes(selectedSound) ? 'active' : ''}`}
+                  onClick={() => toggleFavoriteSound(selectedSound)}
+                >
+                  {favoriteSoundIds.includes(selectedSound) ? 'Saved for later' : 'Save this sound'}
+                </button>
+              </div>
+
               <div className="sleep-reset-list">
                 <button
                   type="button"
@@ -3543,6 +3591,44 @@ const App = () => {
                         </button>
                       </div>
                       <span className="custom-timer-note">Use 1–180 minutes for naps, longer drift, or travel recovery.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="saved-panel glass-subpanel">
+                  <div className="saved-panel-section">
+                    <div className="saved-panel-header">
+                      <strong>Saved for later</strong>
+                      <span>Keep go-to sounds one tap away.</span>
+                    </div>
+                    <div className="saved-chip-row">
+                      {favoriteSounds.length > 0 ? (
+                        favoriteSounds.map((sound) => (
+                          <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                            {sound.name}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="saved-empty-state">Save the sound you want to come back to tomorrow night.</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="saved-panel-section">
+                    <div className="saved-panel-header">
+                      <strong>Recent tonight</strong>
+                      <span>Restart the last room you used.</span>
+                    </div>
+                    <div className="saved-chip-row">
+                      {recentSounds.length > 0 ? (
+                        recentSounds.map((sound) => (
+                          <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                            {sound.name}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="saved-empty-state">Play one sound once and it will show up here for faster restarts.</p>
+                      )}
                     </div>
                   </div>
                 </div>

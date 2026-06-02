@@ -58,7 +58,7 @@
 - 用户意图：需要快速放松方法
 - 工具：4-7-8 的交互节奏器（已上线首版）
 - CTA：Play a matching sleep sound / Open the bedtime reset
-- 当前状态：已补上呼吸后的一键承接卡片，可直接从节奏器进入 Rain on Window 20 分钟、Brown Noise 30 分钟、White Noise 10 分钟或 Ocean Waves 45 分钟场景，减少“做完呼吸还要回首页重选”的断点；播放器侧现已支持 1-180 分钟自定义 timer，方便把呼吸后跟播时长拉到更贴近用户当晚状态的长度
+- 当前状态：已补上呼吸后的一键承接卡片，可直接从节奏器进入 Rain on Window 20 分钟、Brown Noise 30 分钟、White Noise 10 分钟或 Ocean Waves 45 分钟场景，减少“做完呼吸还要回首页重选”的断点；播放器侧现已支持 1-180 分钟自定义 timer，方便把呼吸后跟播时长拉到更贴近用户当晚状态的长度；当前又补上 `Saved follow-ups` 与 `Recent after-breathing restarts`，让做完呼吸的用户可以直接重启自己熟悉的声音场景
 
 ---
 
@@ -97,7 +97,7 @@
 #### 9. `/fall-asleep-fast`
 - 主关键词：fall asleep fast
 - 页面结构：问题解释 + 直接播放器 + 快速建议
-- 当前状态：已在首屏播放器下补上通往 `/sleep-breathing-exercise` 与 `/sleep-calculator` 的桥接入口，并新增保存当前声音 + 一键重播收藏/最近播放入口，先把“今晚想快点睡着 → 先呼吸放松 / 校准 bedtime / 保存常用声音 → 回到单一声音重置”的最小闭环收口
+- 当前状态：已在首屏播放器下补上通往 `/sleep-breathing-exercise` 与 `/sleep-calculator` 的桥接入口，并新增保存当前声音 + 一键重播收藏/最近播放入口，先把“今晚想快点睡着 → 先呼吸放松 / 校准 bedtime / 保存常用声音 → 回到单一声音重置”的最小闭环收口；当前 production 已核验首屏出现 `Open the breathing reset`、`Use the sleep calculator`、`Save this sound` 与自定义 timer 入口
 
 #### 10. `/mind-racing-at-night`
 - 主关键词：mind racing at night
@@ -112,7 +112,7 @@
 #### 12. `/sleep-better-tonight`
 - 主关键词：sleep better tonight
 - 页面结构：更偏总入口，承接宽泛搜索
-- 当前状态：已上线并完成 production 核验，正式域名首屏可直接进入 Rain / Brown / Ocean 三种今晚重置预设，并桥接到 `/sleep-breathing-exercise` 与 `/sleep-calculator`，先把宽泛问题词流量接入核心播放体验
+- 当前状态：已上线并完成 production 核验，正式域名首屏可直接进入 Rain / Brown / Ocean 三种今晚重置预设，并桥接到 `/sleep-breathing-exercise` 与 `/sleep-calculator`；当前已进一步补上 `Save this sound`、`Saved for later` 与 `Recent tonight`，先把宽泛问题词流量接入“选一个声音并可下次快速重播”的最低复播闭环
 
 ---
 

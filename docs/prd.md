@@ -213,6 +213,8 @@ Sleepfast 是一款面向年轻失眠、轻度焦虑用户的轻量化高颜值�
 
 当前 Web MVP 已把 `/sleep-breathing-exercise` 的呼吸后承接从 Rain / Brown 扩到 White / Ocean，覆盖“先放松 → 夜醒重启 / 更长一点的深度漂浮”两类常见后续路径，减少做完呼吸后还要回首页重新挑场景的断点。
 
+当前 Web MVP 已进一步把 `/sleep-breathing-exercise` 接入收藏 / 最近播放承接，用户现在做完 4-7-8 呼吸后，不只可以点预设跟播，也能直接重启自己常用或刚刚播过的声音，先收口“呼吸 reset → 复用熟悉声音场景”的最低复播闭环。
+
 当前 Web MVP 已把首页与工具页之间的 SEO 承接扩到 `/nap-calculator`，首屏即可输入 nap 开始时间并得到 20 / 30 / 90 分钟结束时间，同时桥接 `/sleep-breathing-exercise` 与 `/rain-sounds-for-sleep`，先补齐 daytime recovery 到核心声音体验的最小闭环。
 
 当前 Web MVP 已新增 `/jet-lag-calculator`，首屏即可输入落地后次日的本地起床时间并得到第一晚 bedtime 建议，同时桥接 `/sleep-breathing-exercise` 与 `/ocean-sounds-for-sleep`，先补齐 travel recovery 到核心声音体验的最小闭环。
