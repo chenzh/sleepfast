@@ -999,6 +999,66 @@ button {
   background: rgba(255, 245, 235, 0.04);
   color: #f6efe9;
 }
+
+.sleep-calculator-card {
+  gap: 16px;
+}
+
+.sleep-calculator-input {
+  display: grid;
+  gap: 10px;
+}
+
+.sleep-calculator-input label,
+.sleep-cycle-kicker {
+  color: rgba(244, 229, 214, 0.8);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.sleep-calculator-input input {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(240, 223, 206, 0.12);
+  background: rgba(255, 255, 255, 0.045);
+  color: #f5f7ff;
+}
+
+.sleep-calculator-input p,
+.sleep-cycle-item p {
+  margin: 0;
+  color: rgba(236, 229, 221, 0.74);
+}
+
+.sleep-cycle-list {
+  display: grid;
+  gap: 12px;
+}
+
+.sleep-cycle-item {
+  display: grid;
+  gap: 8px;
+}
+
+.sleep-cycle-item > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sleep-cycle-item strong {
+  font-size: 1.5rem;
+  color: #fbf4ee;
+}
+
+.sleep-cycle-item.recommended {
+  border-color: rgba(151, 188, 255, 0.2);
+  background: linear-gradient(180deg, rgba(35, 43, 67, 0.4), rgba(19, 24, 38, 0.54));
+}
 @media (max-width: 1080px) {
   .hero-layout {
     grid-template-columns: 1fr;

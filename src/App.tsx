@@ -4,6 +4,12 @@ import CatMark from './catMark'
 type SoundId = 'rain' | 'ocean' | 'brown' | 'white'
 type TimerOption = 10 | 20 | 30 | 45
 
+type SleepCycle = {
+  label: string
+  bedtime: string
+  sleepTime: string
+}
+
 type SoundOption = {
   id: SoundId
   name: string
@@ -65,6 +71,8 @@ const scenarios: Scenario[] = [
 
 const timerOptions: TimerOption[] = [10, 20, 30, 45]
 const TIMER_SCALE_MS = 1000
+const FALL_ASLEEP_BUFFER_MINUTES = 15
+const SLEEP_CYCLE_MINUTES = 90
 
 const rainDrops = Array.from({ length: 58 }, (_, index) => ({
   id: index,
@@ -82,12 +90,56 @@ const formatTimerLabel = (timeLeftMs: number | null, timerMinutes: TimerOption) 
   return `${timerMinutes} min preset`
 }
 
+const padTime = (value: number) => value.toString().padStart(2, '0')
+
+const minutesToTimeInput = (totalMinutes: number) => {
+  const wrapped = ((totalMinutes % 1440) + 1440) % 1440
+  const hours = Math.floor(wrapped / 60)
+  const minutes = wrapped % 60
+  return `${padTime(hours)}:${padTime(minutes)}`
+}
+
+const timeInputToMinutes = (value: string) => {
+  const [hours, minutes] = value.split(':').map(Number)
+  return hours * 60 + minutes
+}
+
+const formatMinutesForHumans = (totalMinutes: number) => {
+  const wrapped = ((totalMinutes % 1440) + 1440) % 1440
+  const hours = Math.floor(wrapped / 60)
+  const minutes = wrapped % 60
+  const suffix = hours >= 12 ? 'PM' : 'AM'
+  const normalizedHours = hours % 12 || 12
+  return `${normalizedHours}:${padTime(minutes)} ${suffix}`
+}
+
+const buildSleepCycles = (wakeMinutes: number): SleepCycle[] =>
+  [6, 5, 4].map((cycles) => {
+    const sleepTimeMinutes = wakeMinutes - cycles * SLEEP_CYCLE_MINUTES
+    const bedtimeMinutes = sleepTimeMinutes - FALL_ASLEEP_BUFFER_MINUTES
+
+    return {
+      label: `${cycles} sleep cycles`,
+      bedtime: formatMinutesForHumans(bedtimeMinutes),
+      sleepTime: formatMinutesForHumans(sleepTimeMinutes),
+    }
+  })
+
 const App = () => {
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '/'
   const normalizedPath = pathname.replace(/\/+$/, '') || '/'
   const isWhiteNoisePage = normalizedPath === '/white-noise-for-sleep'
   const isBrownNoisePage = normalizedPath === '/brown-noise-for-sleep'
+  const isSleepCalculatorPage = normalizedPath === '/sleep-calculator'
   const isNoiseToolPage = isWhiteNoisePage || isBrownNoisePage
+  const [wakeTime, setWakeTime] = useState(() => {
+    if (typeof window === 'undefined') return '07:00'
+
+    const now = new Date()
+    const nextHour = new Date(now)
+    nextHour.setHours(now.getHours() + 8, 0, 0, 0)
+    return minutesToTimeInput(nextHour.getHours() * 60 + nextHour.getMinutes())
+  })
   const [selectedSound, setSelectedSound] = useState<SoundId>('rain')
   const [selectedScenario, setSelectedScenario] = useState<string>(scenarios[0].id)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -109,6 +161,7 @@ const App = () => {
     () => soundOptions.find((option) => option.id === selectedSound) ?? soundOptions[0],
     [selectedSound],
   )
+  const sleepCycles = useMemo(() => buildSleepCycles(timeInputToMinutes(wakeTime)), [wakeTime])
 
   useEffect(() => {
     if (isWhiteNoisePage) {
@@ -129,12 +182,16 @@ const App = () => {
       ? 'White Noise for Sleep — Play Instantly in Your Browser | Sleepfast'
       : isBrownNoisePage
         ? 'Brown Noise for Sleep — Play Instantly in Your Browser | Sleepfast'
-        : 'Sleepfast — Fall asleep faster tonight'
+        : isSleepCalculatorPage
+          ? 'Sleep Calculator — Best Bedtime and Wake Time Tool | Sleepfast'
+          : 'Sleepfast — Fall asleep faster tonight'
     const description = isWhiteNoisePage
       ? 'Play white noise for sleep instantly in your browser with a simple timer, light-sleeper masking, and a calmer way to restart sleep after waking up at night.'
       : isBrownNoisePage
         ? 'Play brown noise for sleep instantly in your browser with a deeper low-end layer for racing thoughts, city noise, and harder-to-settle nights.'
-        : 'Sleepfast helps you fall asleep faster with calming sleep sounds, a simple timer, and problem-based bedtime tools right in your browser.'
+        : isSleepCalculatorPage
+          ? 'Use the Sleepfast sleep calculator to find better bedtimes based on 90-minute sleep cycles, then start sleep sounds right away in your browser.'
+          : 'Sleepfast helps you fall asleep faster with calming sleep sounds, a simple timer, and problem-based bedtime tools right in your browser.'
 
     document.title = title
 
@@ -150,7 +207,7 @@ const App = () => {
     updateMeta('meta[property="og:description"]', description)
     updateMeta('meta[name="twitter:title"]', title)
     updateMeta('meta[name="twitter:description"]', description)
-  }, [isBrownNoisePage, isWhiteNoisePage])
+  }, [isBrownNoisePage, isSleepCalculatorPage, isWhiteNoisePage])
 
   const stopPlayback = () => {
     noiseSourceRef.current?.stop?.()
@@ -556,6 +613,156 @@ const App = () => {
             <div className="tool-cta-actions">
               <a className="link-button" href="/">
                 Open the full Sleepfast player
+              </a>
+            </div>
+          </section>
+        </section>
+      </main>
+    )
+  }
+
+  if (isSleepCalculatorPage) {
+    return (
+      <main className="app-shell tool-shell">
+        <section className="tool-hero rain-stage">
+          <div className="top-brandbar">
+            <a className="brand-lockup" aria-label="Sleepfast home" href="/">
+              <CatMark className="brand-cat" />
+              <div className="brand-copy">
+                <span className="brand-name">Sleepfast</span>
+                <span className="brand-tag">sleep calculator</span>
+              </div>
+            </a>
+          </div>
+
+          <div className="rain-backdrop tool-backdrop" aria-hidden="true">
+            <div className="night-vignette" />
+            <div className="mist mist-left" />
+            <div className="mist mist-right" />
+            <div className="city-glow" />
+            <div className="window-sheen" />
+          </div>
+
+          <div className="tool-layout">
+            <section className="tool-copy glass-panel">
+              <span className="eyebrow">Sleep calculator</span>
+              <h1>Find a bedtime that fits real sleep cycles.</h1>
+              <p className="hero-text tool-subtitle">
+                Pick when you want to wake up and get bedtime targets built around 90-minute sleep cycles, with a 15-minute buffer to actually fall asleep.
+              </p>
+              <div className="result-pills" aria-label="Sleep calculator benefits">
+                <span>Instant bedtime targets</span>
+                <span>Built around sleep cycles</span>
+                <span>Works for tonight</span>
+              </div>
+              <div className="cta-row">
+                <a className="link-button" href="#sleep-calculator-tool">
+                  Use the calculator
+                </a>
+                <a className="text-link" href="/">
+                  Try the full Sleepfast homepage
+                </a>
+              </div>
+              <p className="quiet-line tool-quiet-line">
+                Best when you want a quick bedtime answer without opening another app or overthinking the math.
+              </p>
+            </section>
+
+            <aside className="player-card player-card-healing glass-panel tool-player-card sleep-calculator-card" id="sleep-calculator-tool">
+              <div className="now-playing now-playing-minimal">
+                <span className="player-kicker">Wake-up goal</span>
+                <h2>{formatMinutesForHumans(timeInputToMinutes(wakeTime))}</h2>
+                <p className="comfort-note">Choose the time you want to get up. Sleepfast will suggest bedtimes that line up with full sleep cycles instead of random guesses.</p>
+              </div>
+
+              <div className="sleep-calculator-input glass-subpanel">
+                <label htmlFor="wake-time">Wake up at</label>
+                <input
+                  id="wake-time"
+                  type="time"
+                  value={wakeTime}
+                  onChange={(event) => setWakeTime(event.target.value)}
+                />
+                <p>
+                  Assumes about {FALL_ASLEEP_BUFFER_MINUTES} minutes to fall asleep and {SLEEP_CYCLE_MINUTES}-minute sleep cycles.
+                </p>
+              </div>
+
+              <div className="sleep-cycle-list">
+                {sleepCycles.map((cycle, index) => (
+                  <div className={`sleep-cycle-item glass-subpanel ${index === 0 ? 'recommended' : ''}`} key={cycle.label}>
+                    <div>
+                      <span className="sleep-cycle-kicker">{index === 0 ? 'Recommended' : 'Also works'}</span>
+                      <strong>{cycle.bedtime}</strong>
+                    </div>
+                    <p>
+                      Aim to be asleep by {cycle.sleepTime} for {cycle.label} before your wake-up time.
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="player-footer player-footer-artful player-footer-healing player-footer-single">
+                <a className="link-button" href="/">
+                  Start sleep sounds for tonight
+                </a>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section className="tool-sections">
+          <section className="tool-section glass-panel">
+            <h2>How this sleep calculator works</h2>
+            <p>
+              Most sleep calculators count backward in 90-minute blocks because a full sleep cycle often moves through light, deep, and REM sleep in about that range.
+            </p>
+            <p>
+              Sleepfast also adds a short fall-asleep buffer, so the bedtime you see is closer to when you should get in bed, not the exact minute your eyes close.
+            </p>
+          </section>
+
+          <section className="tool-section glass-panel">
+            <h2>When to use it</h2>
+            <ul className="tool-list">
+              <li>When you know what time you need to wake up and want a realistic bedtime target.</li>
+              <li>When you want to avoid waking up in the middle of a deep sleep stretch.</li>
+              <li>When you need a simple tonight-only answer, not a full sleep tracking system.</li>
+            </ul>
+          </section>
+
+          <section className="tool-section glass-panel">
+            <h2>FAQ</h2>
+            <div className="faq-list">
+              <div>
+                <h3>Is 90 minutes exact for everyone?</h3>
+                <p>No. Sleep cycles vary by person, but 90 minutes is a useful planning baseline when you want a practical bedtime estimate fast.</p>
+              </div>
+              <div>
+                <h3>Why does this add 15 minutes?</h3>
+                <p>Because most people do not fall asleep the second they get into bed. The short buffer makes the bedtime suggestion more realistic.</p>
+              </div>
+              <div>
+                <h3>What should I do after picking a bedtime?</h3>
+                <p>Keep the room dark, stop adjusting everything, and start one steady sleep sound so your body has fewer reasons to stay alert.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="conversion-story glass-panel tool-cta-panel">
+            <div className="conversion-intro">
+              <span className="eyebrow">Keep going with Sleepfast</span>
+              <h2>Got your bedtime? Pair it with a softer room.</h2>
+              <p>
+                Use the calculator to choose when to get in bed, then switch to Sleepfast sounds for the part that still matters most: actually winding down and falling asleep.
+              </p>
+            </div>
+            <div className="tool-cta-actions">
+              <a className="link-button" href="/">
+                Open the full Sleepfast player
+              </a>
+              <a className="text-link" href="/white-noise-for-sleep">
+                Or try white noise for sleep
               </a>
             </div>
           </section>
