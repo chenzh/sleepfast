@@ -162,6 +162,66 @@ const buildSleepCycles = (wakeMinutes: number): SleepCycle[] =>
     }
   })
 
+const getHeroScene = (soundId: SoundId) => {
+  if (soundId === 'ocean') {
+    return {
+      backdropClassName: 'rain-backdrop ocean-backdrop',
+      vignetteClassName: 'night-vignette ocean-vignette',
+      mistLeftClassName: 'mist mist-left ocean-mist-left',
+      mistRightClassName: 'mist mist-right ocean-mist-right',
+      eyebrow: 'Moon over the water',
+      microCopy: 'For the nights when your body is tired, but your thoughts still keep washing back in.',
+      comfortNote: 'A small moonlit shoreline for the moment your shoulders are tired, but the rest of you has not drifted there yet.',
+      ritualLabel: 'Ocean ritual',
+      ritualCopy: 'Choose one sound, dim the room, and let the water keep moving without changing much. The less you manage, the easier it is to drift.',
+      ambientClassName: 'ambient-preview ambient-preview-healing',
+      scene: 'ocean' as const,
+    }
+  }
+
+  if (soundId === 'rain') {
+    return {
+      backdropClassName: 'rain-backdrop rain-backdrop-window',
+      vignetteClassName: 'night-vignette',
+      mistLeftClassName: 'mist mist-left',
+      mistRightClassName: 'mist mist-right',
+      eyebrow: 'Rain on the glass',
+      microCopy: 'For the nights when a softer room matters more than another attempt at control.',
+      comfortNote: 'A sheltered window scene for the moment you need the room to feel dimmer, quieter, and less exposed.',
+      ritualLabel: 'Rain ritual',
+      ritualCopy: 'Let the rain carry the background, keep the lights low, and stop asking the room to change every few minutes.',
+      ambientClassName: 'ambient-preview ambient-preview-healing ambient-preview-rain',
+      scene: 'rain' as const,
+    }
+  }
+
+  return {
+    backdropClassName: 'rain-backdrop deep-space-backdrop',
+    vignetteClassName: 'night-vignette deep-space-vignette',
+    mistLeftClassName: 'mist mist-left deep-space-mist-left',
+    mistRightClassName: 'mist mist-right deep-space-mist-right',
+    eyebrow: soundId === 'brown' ? 'Ground the room' : 'Quiet the sharp edges',
+    microCopy:
+      soundId === 'brown'
+        ? 'For the nights when silence makes your thoughts feel even louder.'
+        : 'For the wake-ups where every tiny sound suddenly feels too bright.',
+    comfortNote:
+      soundId === 'brown'
+        ? 'A deeper night layer for the moments when your mind needs something heavier than silence to lean against.'
+        : 'A cleaner masking layer for the moments when you need the room to stop surprising you.',
+    ritualLabel: soundId === 'brown' ? 'Brown noise ritual' : 'White noise ritual',
+    ritualCopy:
+      soundId === 'brown'
+        ? 'Keep one grounding layer in place and let the deeper texture hold the room steady while your thoughts lose momentum.'
+        : 'Use one steady masking layer, keep the room predictable, and give sudden sounds fewer chances to pull you awake again.',
+    ambientClassName:
+      soundId === 'brown'
+        ? 'ambient-preview ambient-preview-healing ambient-preview-brown'
+        : 'ambient-preview ambient-preview-healing ambient-preview-white',
+    scene: soundId === 'brown' ? ('brown' as const) : ('white' as const),
+  }
+}
+
 const App = () => {
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '/'
   const normalizedPath = pathname.replace(/\/+$/, '') || '/'
@@ -201,6 +261,7 @@ const App = () => {
     () => soundOptions.find((option) => option.id === selectedSound) ?? soundOptions[0],
     [selectedSound],
   )
+  const heroScene = useMemo(() => getHeroScene(selectedSound), [selectedSound])
   const sleepCycles = useMemo(() => buildSleepCycles(timeInputToMinutes(wakeTime)), [wakeTime])
   const relatedToolLinks = useMemo(
     () => toolLinks.filter((tool) => tool.href !== normalizedPath).slice(0, 3),
@@ -1512,28 +1573,50 @@ const App = () => {
             </div>
           </div>
         </div>
-        <div className="rain-backdrop ocean-backdrop" aria-hidden="true">
-          <div className="night-vignette ocean-vignette" />
-          <div className="mist mist-left ocean-mist-left" />
-          <div className="mist mist-right ocean-mist-right" />
-          <div className="moon-glow" />
-          <div className="ocean-horizon" />
-          <div className="ocean-wave-layer ocean-wave-back" />
-          <div className="ocean-wave-layer ocean-wave-mid" />
-          <div className="ocean-wave-layer ocean-wave-front" />
-          <div className="ocean-foam" />
+        <div className={heroScene.backdropClassName} aria-hidden="true">
+          <div className={heroScene.vignetteClassName} />
+          <div className={heroScene.mistLeftClassName} />
+          <div className={heroScene.mistRightClassName} />
+          {heroScene.scene === 'ocean' ? (
+            <>
+              <div className="moon-glow" />
+              <div className="ocean-horizon" />
+              <div className="ocean-wave-layer ocean-wave-back" />
+              <div className="ocean-wave-layer ocean-wave-mid" />
+              <div className="ocean-wave-layer ocean-wave-front" />
+              <div className="ocean-foam" />
+            </>
+          ) : null}
+          {heroScene.scene === 'rain' ? (
+            <>
+              <div className="city-glow" />
+              <div className="window-sheen" />
+              <div className="window-frame frame-left" />
+              <div className="window-frame frame-right" />
+              <div className="window-frame frame-top" />
+              <div className="rain-layer rain-layer-soft" />
+            </>
+          ) : null}
+          {heroScene.scene === 'brown' || heroScene.scene === 'white' ? (
+            <>
+              <div className="deep-space-glow" />
+              <div className="deep-space-orbit deep-space-orbit-one" />
+              <div className="deep-space-orbit deep-space-orbit-two" />
+              <div className="floating-stars deep-space-stars" />
+            </>
+          ) : null}
         </div>
 
         <div className="hero-layout">
           <section className="story-panel">
             <div className="story-copy glass-panel">
               <div className="hero-badge-row">
-                <span className="eyebrow">Moon over the water</span>
+                <span className="eyebrow">{heroScene.eyebrow}</span>
                 <div className="hero-cat-badge" aria-label="Sleepfast cat mark">
                   <CatMark className="hero-cat" />
                 </div>
               </div>
-              <p className="micro-copy">For the nights when your body is tired, but your thoughts still keep washing back in.</p>
+              <p className="micro-copy">{heroScene.microCopy}</p>
               <h1>Fall asleep faster tonight without leaving the browser.</h1>
               <p className="hero-text">
                 Sleepfast gives you a softer shoreline for sleep — moving water, steady sound, and a simpler browser-first reset for bedtime overthinking, 3AM wake-ups, and hard-to-settle nights.
@@ -1575,21 +1658,45 @@ const App = () => {
             <div className="now-playing now-playing-minimal">
               <span className="player-kicker">Tonight's shoreline</span>
               <h2>{currentSound.name}</h2>
-              <p className="comfort-note">A small moonlit shoreline for the moment your shoulders are tired, but the rest of you has not drifted there yet.</p>
+              <p className="comfort-note">{heroScene.comfortNote}</p>
             </div>
 
-            <div className="ambient-preview ambient-preview-healing" aria-hidden="true">
-              <div className="moon-halo" />
-              <div className="moon-core" />
-              <div className="ambient-orb ambient-orb-one" />
-              <div className="ambient-orb ambient-orb-two" />
-              <div className="ambient-grid ambient-grid-soft" />
-              <div className="floating-stars" />
+            <div className={heroScene.ambientClassName} aria-hidden="true">
+              {heroScene.scene === 'ocean' ? (
+                <>
+                  <div className="moon-halo" />
+                  <div className="moon-core" />
+                  <div className="ambient-orb ambient-orb-one" />
+                  <div className="ambient-orb ambient-orb-two" />
+                  <div className="ambient-grid ambient-grid-soft" />
+                  <div className="floating-stars" />
+                </>
+              ) : null}
+              {heroScene.scene === 'rain' ? (
+                <>
+                  <div className="rain-preview-glow" />
+                  <div className="window-sheen ambient-window-sheen" />
+                  <div className="window-frame frame-left" />
+                  <div className="window-frame frame-right" />
+                  <div className="window-frame frame-top" />
+                  <div className="rain-layer rain-layer-preview" />
+                </>
+              ) : null}
+              {heroScene.scene === 'brown' || heroScene.scene === 'white' ? (
+                <>
+                  <div className="noise-halo" />
+                  <div className="noise-core" />
+                  <div className="ambient-orb ambient-orb-one" />
+                  <div className="ambient-orb ambient-orb-two" />
+                  <div className="ambient-grid ambient-grid-soft" />
+                  <div className="floating-stars" />
+                </>
+              ) : null}
             </div>
 
             <div className="ritual-copy">
-              <span className="ritual-label">Ocean ritual</span>
-              <p>Choose one sound, dim the room, and let the water keep moving without changing much. The less you manage, the easier it is to drift.</p>
+              <span className="ritual-label">{heroScene.ritualLabel}</span>
+              <p>{heroScene.ritualCopy}</p>
             </div>
 
             <div className="player-footer player-footer-artful player-footer-healing player-footer-single">

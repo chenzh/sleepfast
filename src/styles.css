@@ -129,6 +129,24 @@ button {
     linear-gradient(180deg, #0d1730 0%, #123257 42%, #0d2e4c 60%, #081b31 100%);
 }
 
+.rain-backdrop-window {
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 226, 192, 0.12), transparent 16%),
+    radial-gradient(circle at 76% 16%, rgba(146, 180, 255, 0.12), transparent 24%),
+    radial-gradient(circle at 50% 76%, rgba(118, 137, 182, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(10, 14, 24, 0.22), rgba(6, 9, 16, 0.84)),
+    linear-gradient(180deg, #101628 0%, #161d2f 44%, #0a0f18 100%);
+}
+
+.deep-space-backdrop {
+  background:
+    radial-gradient(circle at 50% 16%, rgba(215, 227, 255, 0.12), transparent 12%),
+    radial-gradient(circle at 18% 28%, rgba(109, 139, 202, 0.16), transparent 24%),
+    radial-gradient(circle at 82% 24%, rgba(255, 218, 182, 0.08), transparent 20%),
+    linear-gradient(180deg, rgba(9, 12, 22, 0.16), rgba(6, 8, 15, 0.82)),
+    linear-gradient(180deg, #09111f 0%, #111a2d 42%, #070d18 100%);
+}
+
 .tool-backdrop {
   border-radius: 0 0 30px 30px;
 }
@@ -185,6 +203,18 @@ button {
 
 .ocean-mist-right {
   background: radial-gradient(circle at 76% 26%, rgba(255, 218, 182, 0.12), transparent 22%);
+}
+
+.deep-space-vignette {
+  background: radial-gradient(circle at center, transparent 24%, rgba(2, 4, 8, 0.62) 100%);
+}
+
+.deep-space-mist-left {
+  background: radial-gradient(circle at 24% 34%, rgba(123, 153, 227, 0.22), transparent 24%);
+}
+
+.deep-space-mist-right {
+  background: radial-gradient(circle at 76% 24%, rgba(255, 221, 189, 0.1), transparent 20%);
 }
 
 .rain-backdrop::before {
@@ -338,6 +368,94 @@ button {
     linear-gradient(114deg, transparent 0%, rgba(255, 255, 255, 0.1) 44%, transparent 60%),
     linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.03) 22%, transparent 40%, rgba(255, 255, 255, 0.02) 72%, transparent 100%);
   opacity: 0.52;
+}
+
+.rain-layer-soft,
+.rain-layer-preview {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(209, 227, 255, 0.18));
+  background-size: 2px 100%;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 1));
+  transform: skewX(-10deg);
+  opacity: 0.34;
+}
+
+.rain-layer-soft {
+  inset: -12% 8% 0;
+  background-repeat: repeat;
+  background-size: 26px 100%;
+  animation: rainSheet 14s linear infinite;
+}
+
+.rain-layer-preview {
+  inset: -8% 14% 8%;
+  background-repeat: repeat;
+  background-size: 24px 100%;
+  animation: rainSheet 10s linear infinite;
+}
+
+.ambient-window-sheen {
+  opacity: 0.44;
+}
+
+.deep-space-glow {
+  position: absolute;
+  inset: 18% 28% auto;
+  height: 24%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(220, 231, 255, 0.2), rgba(220, 231, 255, 0) 72%);
+  filter: blur(16px);
+}
+
+.deep-space-orbit {
+  position: absolute;
+  border: 1px solid rgba(207, 222, 255, 0.08);
+  border-radius: 999px;
+}
+
+.deep-space-orbit-one {
+  inset: 18% 24% auto;
+  height: 34%;
+  animation: slowOrbit 22s linear infinite;
+}
+
+.deep-space-orbit-two {
+  inset: 26% 34% auto;
+  height: 22%;
+  animation: slowOrbitReverse 16s linear infinite;
+}
+
+.deep-space-stars {
+  opacity: 0.66;
+}
+
+@keyframes rainSheet {
+  from {
+    transform: translate3d(0, -10%, 0) skewX(-10deg);
+  }
+
+  to {
+    transform: translate3d(-18px, 12%, 0) skewX(-10deg);
+  }
+}
+
+@keyframes slowOrbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slowOrbitReverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 .rain-drop {
@@ -781,6 +899,27 @@ button {
   border: 1px solid rgba(237, 220, 204, 0.08);
 }
 
+.ambient-preview-rain {
+  background:
+    radial-gradient(circle at 20% 24%, rgba(255, 225, 196, 0.12), transparent 18%),
+    radial-gradient(circle at 78% 20%, rgba(148, 182, 255, 0.12), transparent 20%),
+    linear-gradient(180deg, rgba(27, 34, 50, 0.94), rgba(14, 18, 29, 0.98));
+}
+
+.ambient-preview-brown {
+  background:
+    radial-gradient(circle at 50% 24%, rgba(210, 223, 255, 0.14), transparent 18%),
+    radial-gradient(circle at 50% 76%, rgba(108, 120, 162, 0.22), transparent 34%),
+    linear-gradient(180deg, rgba(23, 30, 47, 0.94), rgba(10, 14, 24, 0.98));
+}
+
+.ambient-preview-white {
+  background:
+    radial-gradient(circle at 50% 24%, rgba(233, 241, 255, 0.18), transparent 18%),
+    radial-gradient(circle at 50% 76%, rgba(128, 150, 192, 0.2), transparent 34%),
+    linear-gradient(180deg, rgba(25, 33, 49, 0.94), rgba(10, 15, 25, 0.98));
+}
+
 .moon-halo {
   position: absolute;
   top: 18%;
@@ -803,6 +942,36 @@ button {
   transform: translateX(-50%);
   background: radial-gradient(circle at 35% 35%, #fff7ef 0%, #f4dbc3 46%, rgba(244, 219, 195, 0.2) 100%);
   box-shadow: 0 0 36px rgba(255, 225, 196, 0.2);
+}
+
+.rain-preview-glow {
+  position: absolute;
+  inset: 16% 24% auto;
+  height: 26%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 231, 211, 0.14), rgba(255, 231, 211, 0) 72%);
+  filter: blur(14px);
+}
+
+.noise-halo {
+  position: absolute;
+  inset: 18% 30% auto;
+  height: 24%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(220, 232, 255, 0.22), rgba(220, 232, 255, 0) 72%);
+  filter: blur(12px);
+}
+
+.noise-core {
+  position: absolute;
+  top: 26%;
+  left: 50%;
+  width: 82px;
+  height: 82px;
+  border-radius: 999px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 50% 50%, rgba(241, 246, 255, 0.94), rgba(182, 202, 240, 0.42) 44%, rgba(182, 202, 240, 0) 78%);
+  box-shadow: 0 0 42px rgba(181, 203, 255, 0.18);
 }
 
 .ambient-grid-soft {
