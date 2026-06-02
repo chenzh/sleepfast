@@ -125,6 +125,7 @@ const App = () => {
   const isSleepCalculatorPage = normalizedPath === '/sleep-calculator'
   const isFallAsleepFastPage = normalizedPath === '/fall-asleep-fast'
   const isWakeUpAt3amPage = normalizedPath === '/wake-up-at-3am'
+  const isMindRacingAtNightPage = normalizedPath === '/mind-racing-at-night'
   const isNoiseToolPage = isWhiteNoisePage || isBrownNoisePage
   const [wakeTime, setWakeTime] = useState(() => {
     if (typeof window === 'undefined') return '07:00'
@@ -164,12 +165,12 @@ const App = () => {
       setTimerMinutes(isWakeUpAt3amPage ? 10 : 30)
     }
 
-    if (isBrownNoisePage) {
+    if (isBrownNoisePage || isMindRacingAtNightPage) {
       setSelectedSound('brown')
       setSelectedScenario('cant-sleep')
       setTimerMinutes(45)
     }
-  }, [isBrownNoisePage, isWakeUpAt3amPage, isWhiteNoisePage])
+  }, [isBrownNoisePage, isMindRacingAtNightPage, isWakeUpAt3amPage, isWhiteNoisePage])
 
   useEffect(() => {
     const title = isWhiteNoisePage
@@ -182,6 +183,8 @@ const App = () => {
             ? 'Fall Asleep Fast — Sleep Sounds and Bedtime Reset | Sleepfast'
             : isWakeUpAt3amPage
               ? 'Wake Up at 3AM — Fall Back Asleep Faster | Sleepfast'
+              : isMindRacingAtNightPage
+                ? 'Mind Racing at Night — Calm Down and Fall Asleep Faster | Sleepfast'
             : 'Sleepfast — Fall asleep faster tonight'
     const description = isWhiteNoisePage
         ? 'Play white noise for sleep instantly in your browser with a simple timer, light-sleeper masking, and a calmer way to restart sleep after waking up at night.'
@@ -193,6 +196,8 @@ const App = () => {
             ? 'Fall asleep fast with instant browser sleep sounds, a simple bedtime reset, and calmer steps for racing thoughts or noisy nights.'
             : isWakeUpAt3amPage
               ? 'Use Sleepfast to fall back asleep after waking up at 3AM with instant white noise, a short restart timer, and a calmer middle-of-the-night reset.'
+              : isMindRacingAtNightPage
+                ? 'Use Sleepfast when your mind is racing at night with instant brown noise, a simple timer, and a calmer reset built for overstimulated bedtimes.'
             : 'Sleepfast helps you fall asleep faster with calming sleep sounds, a simple timer, and problem-based bedtime tools right in your browser.'
 
     document.title = title
@@ -209,7 +214,7 @@ const App = () => {
     updateMeta('meta[property="og:description"]', description)
     updateMeta('meta[name="twitter:title"]', title)
     updateMeta('meta[name="twitter:description"]', description)
-  }, [isBrownNoisePage, isFallAsleepFastPage, isSleepCalculatorPage, isWakeUpAt3amPage, isWhiteNoisePage])
+  }, [isBrownNoisePage, isFallAsleepFastPage, isMindRacingAtNightPage, isSleepCalculatorPage, isWakeUpAt3amPage, isWhiteNoisePage])
 
   const stopPlayback = () => {
     noiseSourceRef.current?.stop?.()
@@ -1160,6 +1165,219 @@ const App = () => {
               </a>
               <a className="text-link" href="/white-noise-for-sleep">
                 Or try white noise for sleep
+              </a>
+            </div>
+          </section>
+        </section>
+      </main>
+    )
+  }
+
+  if (isMindRacingAtNightPage) {
+    return (
+      <main className="app-shell tool-shell">
+        <section className="tool-hero rain-stage">
+          <div className="top-brandbar">
+            <a className="brand-lockup" aria-label="Sleepfast home" href="/">
+              <CatMark className="brand-cat" />
+              <div className="brand-copy">
+                <span className="brand-name">Sleepfast</span>
+                <span className="brand-tag">mind racing at night</span>
+              </div>
+            </a>
+          </div>
+
+          <div className="rain-backdrop tool-backdrop" aria-hidden="true">
+            <div className="night-vignette" />
+            <div className="mist mist-left" />
+            <div className="mist mist-right" />
+            <div className="city-glow" />
+            <div className="window-sheen" />
+          </div>
+
+          <div className="tool-layout">
+            <section className="tool-copy glass-panel">
+              <span className="eyebrow">Mind racing at night</span>
+              <h1>Calm a racing mind before it turns into a longer night.</h1>
+              <p className="hero-text tool-subtitle">
+                Start deeper brown noise instantly, keep your room from feeling too exposed, and use one simple reset when your thoughts will not stop looping at bedtime.
+              </p>
+              <div className="result-pills" aria-label="Mind racing at night benefits">
+                <span>Instant brown noise reset</span>
+                <span>Built for overstimulated nights</span>
+                <span>Simple 20 to 45 minute timer</span>
+              </div>
+              <div className="cta-row">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    setSelectedSound('brown')
+                    if (selectedScenario !== 'cant-sleep') {
+                      setSelectedScenario('cant-sleep')
+                    }
+                    setTimerMinutes(45)
+                    await handleTogglePlayback()
+                  }}
+                >
+                  {isPlaying && selectedSound === 'brown' ? 'Pause the grounding layer' : 'Start calming the mental noise'}
+                </button>
+                <a className="text-link" href="#mind-racing-tool">
+                  Jump to the calmer reset
+                </a>
+              </div>
+              <p className="quiet-line tool-quiet-line">
+                Best when silence makes your thoughts louder, your body feels tired, and every new idea keeps pulling you farther from sleep.
+              </p>
+            </section>
+
+            <aside className="player-card player-card-healing glass-panel tool-player-card" id="mind-racing-tool">
+              <div className="now-playing now-playing-minimal">
+                <span className="player-kicker">Grounding bedtime layer</span>
+                <h2>{selectedSound === 'white' ? 'White Noise' : 'Brown Noise'}</h2>
+                <p className="comfort-note">
+                  Start with a deeper layer that feels less sharp than silence, then keep the room steady instead of searching for the perfect sleep fix.
+                </p>
+              </div>
+
+              <div className="sleep-reset-list">
+                <button
+                  type="button"
+                  className={`sleep-reset-item glass-subpanel ${selectedSound === 'brown' ? 'active' : ''}`}
+                  onClick={async () => {
+                    setSelectedScenario('cant-sleep')
+                    setSelectedSound('brown')
+                    setTimerMinutes(45)
+                    if (isPlaying) {
+                      await startSound('brown')
+                      timerDeadlineRef.current = Date.now() + 45 * TIMER_SCALE_MS
+                      setTimeLeftMs(45 * TIMER_SCALE_MS)
+                    }
+                  }}
+                >
+                  <div>
+                    <span className="sleep-cycle-kicker">Default grounding preset</span>
+                    <strong>Brown Noise · 45 min</strong>
+                  </div>
+                  <p>Use a deeper, heavier sound when mental chatter feels louder than the room itself.</p>
+                </button>
+                <button
+                  type="button"
+                  className={`sleep-reset-item glass-subpanel ${selectedSound === 'white' ? 'active' : ''}`}
+                  onClick={async () => {
+                    setSelectedScenario('cant-sleep')
+                    setSelectedSound('white')
+                    setTimerMinutes(30)
+                    if (isPlaying) {
+                      await startSound('white')
+                      timerDeadlineRef.current = Date.now() + 30 * TIMER_SCALE_MS
+                      setTimeLeftMs(30 * TIMER_SCALE_MS)
+                    }
+                  }}
+                >
+                  <div>
+                    <span className="sleep-cycle-kicker">Cleaner backup</span>
+                    <strong>White Noise · 30 min</strong>
+                  </div>
+                  <p>Switch here if your thoughts are racing but outside sounds are also keeping your brain on alert.</p>
+                </button>
+              </div>
+
+              <div className="control-drawer glass-subpanel control-drawer-healing control-drawer-open">
+                <div className="player-controls">
+                  <div className="timer-block timer-block-minimal">
+                    <div className="timer-label-row timer-label-row-minimal">
+                      <strong>Grounding timer</strong>
+                      <span>{formatTimerLabel(timeLeftMs, timerMinutes)}</span>
+                    </div>
+                    <div className="timer-row">
+                      {timerOptions.map((option) => (
+                        <button
+                          key={option}
+                          type="button"
+                          className={option === timerMinutes ? 'active' : ''}
+                          onClick={() => {
+                            setTimerMinutes(option)
+                            if (isPlaying) {
+                              timerDeadlineRef.current = Date.now() + option * TIMER_SCALE_MS
+                              setTimeLeftMs(option * TIMER_SCALE_MS)
+                            }
+                          }}
+                        >
+                          {option} min
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="player-footer player-footer-artful player-footer-healing player-footer-single">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    setSelectedSound('brown')
+                    await handleTogglePlayback()
+                  }}
+                >
+                  {isPlaying && selectedSound === 'brown' ? 'Keep the room grounded' : 'Use brown noise now'}
+                </button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section className="tool-sections">
+          <section className="tool-section glass-panel">
+            <h2>Why your mind races more at night</h2>
+            <p>
+              At night there is less distraction, less outside structure, and more silence for unfinished thoughts to bounce around in. That does not mean anything is wrong with you. It just means your brain suddenly has more space to keep going.
+            </p>
+            <p>
+              Sleepfast is built for that exact window: one steady sound, fewer new inputs, and less pressure to solve everything before sleep can start.
+            </p>
+          </section>
+
+          <section className="tool-section glass-panel">
+            <h2>A simple reset for racing thoughts</h2>
+            <ul className="tool-list">
+              <li>Pick one sound and leave it alone instead of testing five options in a row.</li>
+              <li>Set a short or medium timer so the room feels covered without becoming another thing to manage.</li>
+              <li>Keep lights low and let your attention return to the same steady layer each time your mind tries to sprint ahead.</li>
+            </ul>
+          </section>
+
+          <section className="tool-section glass-panel">
+            <h2>FAQ</h2>
+            <div className="faq-list">
+              <div>
+                <h3>What is the best sound when my mind will not slow down?</h3>
+                <p>Brown noise is often the best place to start because it feels deeper and less sharp than white noise, which can help when your problem is mental chatter more than outside sound.</p>
+              </div>
+              <div>
+                <h3>Can sound stop anxious thoughts completely?</h3>
+                <p>No. But it can give your attention one steady background layer so every small thought does not feel like the loudest thing in the room.</p>
+              </div>
+              <div>
+                <h3>How long should I leave brown noise on?</h3>
+                <p>Start with 30 to 45 minutes if your thoughts keep looping at bedtime. Go shorter when you mainly need help crossing the first few minutes into sleep.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="conversion-story glass-panel tool-cta-panel">
+            <div className="conversion-intro">
+              <span className="eyebrow">Keep going with Sleepfast</span>
+              <h2>Need help with night wake-ups too?</h2>
+              <p>
+                Go back to the full Sleepfast player for rain, ocean, white noise, brown noise, and a calmer homepage flow built for both bedtime overthinking and middle-of-the-night restarts.
+              </p>
+            </div>
+            <div className="tool-cta-actions">
+              <a className="link-button" href="/">
+                Open the full Sleepfast player
+              </a>
+              <a className="text-link" href="/wake-up-at-3am">
+                Or try the 3AM wake-up reset
               </a>
             </div>
           </section>

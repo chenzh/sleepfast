@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && mkdir -p dist/white-noise-for-sleep dist/brown-noise-for-sleep dist/sleep-calculator dist/fall-asleep-fast dist/wake-up-at-3am && cp dist/index.html dist/white-noise-for-sleep/index.html && cp dist/index.html dist/brown-noise-for-sleep/index.html && cp dist/index.html dist/sleep-calculator/index.html && cp dist/index.html dist/fall-asleep-fast/index.html && cp dist/index.html dist/wake-up-at-3am/index.html",
+    "build": "tsc -b && vite build && mkdir -p dist/white-noise-for-sleep dist/brown-noise-for-sleep dist/sleep-calculator dist/fall-asleep-fast dist/wake-up-at-3am dist/mind-racing-at-night && cp dist/index.html dist/white-noise-for-sleep/index.html && cp dist/index.html dist/brown-noise-for-sleep/index.html && cp dist/index.html dist/sleep-calculator/index.html && cp dist/index.html dist/fall-asleep-fast/index.html && cp dist/index.html dist/wake-up-at-3am/index.html && cp dist/index.html dist/mind-racing-at-night/index.html",
     "preview": "vite preview"
   },
   "dependencies": {
