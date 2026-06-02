@@ -980,24 +980,59 @@ button {
   color: rgba(216, 226, 242, 0.68);
 }
 
-.promise-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.premium-preview {
+  display: grid;
   gap: 18px;
   padding-top: 6px;
   border-top: 1px solid rgba(191, 213, 247, 0.08);
 }
 
-.promise-line {
-  max-width: 62ch;
-  color: rgba(235, 229, 221, 0.74);
+.premium-preview-copy {
+  display: grid;
+  gap: 10px;
+  max-width: 72ch;
 }
 
-.promise-button {
-  border: 1px solid rgba(233, 218, 205, 0.14);
-  background: rgba(255, 245, 235, 0.04);
-  color: #f6efe9;
+.premium-preview-copy h3 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2.1vw, 1.85rem);
+  letter-spacing: -0.02em;
+}
+
+.premium-preview-copy p {
+  margin: 0;
+  color: rgba(235, 229, 221, 0.8);
+}
+
+.premium-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.premium-tier {
+  display: grid;
+  gap: 12px;
+}
+
+.premium-tier-label {
+  color: rgba(244, 229, 214, 0.82);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.premium-tier ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+  color: rgba(235, 229, 221, 0.8);
+}
+
+.premium-tier-highlight {
+  background: linear-gradient(180deg, rgba(72, 82, 122, 0.34), rgba(28, 33, 52, 0.52));
+  border-color: rgba(239, 226, 210, 0.12);
 }
 
 .sleep-calculator-card {

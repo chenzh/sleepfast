@@ -1168,9 +1168,34 @@ const App = () => {
               : 'No pressure. Just a quiet note when something genuinely better is ready.'}
           </p>
 
-          <div className="promise-row" id="membership">
-            <span className="promise-line">Later, premium becomes a deeper overnight room — longer rain, softer fades, gentler returns to sleep.</span>
-            <button type="button" className="promise-button">See the quieter version</button>
+          <div className="premium-preview" id="membership" aria-label="Sleepfast premium preview">
+            <div className="premium-preview-copy">
+              <span className="eyebrow">Sleepfast premium preview</span>
+              <h3>Free helps you settle tonight. Premium is for harder overnight nights.</h3>
+              <p>
+                Keep the free player for instant sleep sounds and short timers. Upgrade when you want longer overnight playback, calmer restarts after waking up, and presets built for more specific sleep problems.
+              </p>
+            </div>
+
+            <div className="premium-compare-grid">
+              <div className="premium-tier glass-subpanel">
+                <span className="premium-tier-label">Free tonight</span>
+                <ul>
+                  <li>Instant browser sleep sounds</li>
+                  <li>10 to 45 minute timer presets</li>
+                  <li>Quick help for falling asleep faster</li>
+                </ul>
+              </div>
+
+              <div className="premium-tier premium-tier-highlight glass-subpanel">
+                <span className="premium-tier-label">Premium overnight</span>
+                <ul>
+                  <li>Longer playback for all-night rooms</li>
+                  <li>Night waking restart mode for 3 AM wake-ups</li>
+                  <li>More targeted presets for noise, stress, and racing thoughts</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
