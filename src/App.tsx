@@ -1534,15 +1534,16 @@ const App = () => {
                 </div>
               </div>
               <p className="micro-copy">For the nights when your body is tired, but your thoughts still keep washing back in.</p>
-              <h1>Let the waves carry the day a little farther away.</h1>
+              <h1>Fall asleep faster tonight without leaving the browser.</h1>
               <p className="hero-text">
-                Sleepfast turns the room into a softer shoreline — moving water, steady sound, and just enough rhythm to help your breathing slow down with it.
+                Sleepfast gives you a softer shoreline for sleep — moving water, steady sound, and a simpler browser-first reset for bedtime overthinking, 3AM wake-ups, and hard-to-settle nights.
               </p>
               <p className="result-line">
-                Open it, press play, and let the ocean keep moving so you do not have to keep holding everything still by yourself.
+                Open it, press play, and let one steady layer help you fall asleep faster tonight instead of chasing a different fix every few minutes.
               </p>
               <div className="result-pills result-pills-minimal" aria-label="Sleepfast outcomes">
-                <span>Moving ocean calm</span>
+                <span>Fall asleep faster tonight</span>
+                <span>Browser-first sleep reset</span>
                 <span>Better for restless nights</span>
               </div>
 
