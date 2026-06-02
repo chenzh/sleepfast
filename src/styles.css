@@ -122,6 +122,13 @@ button {
     linear-gradient(180deg, #11172a 0%, #1a2135 44%, #0c111b 100%);
 }
 
+.ocean-backdrop {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 226, 192, 0.16), transparent 14%),
+    radial-gradient(circle at 78% 20%, rgba(128, 188, 255, 0.12), transparent 24%),
+    linear-gradient(180deg, #0d1730 0%, #123257 42%, #0d2e4c 60%, #081b31 100%);
+}
+
 .tool-backdrop {
   border-radius: 0 0 30px 30px;
 }
@@ -131,7 +138,11 @@ button {
 .city-glow,
 .window-sheen,
 .rain-layer,
-.window-frame {
+.window-frame,
+.moon-glow,
+.ocean-horizon,
+.ocean-wave-layer,
+.ocean-foam {
   position: absolute;
 }
 
@@ -139,12 +150,20 @@ button {
 .mist,
 .city-glow,
 .window-sheen,
-.rain-layer {
+.rain-layer,
+.moon-glow,
+.ocean-horizon,
+.ocean-wave-layer,
+.ocean-foam {
   inset: 0;
 }
 
 .night-vignette {
   background: radial-gradient(circle at center, transparent 30%, rgba(2, 4, 8, 0.44) 100%);
+}
+
+.ocean-vignette {
+  background: linear-gradient(180deg, rgba(6, 12, 22, 0.18), rgba(4, 10, 18, 0.3) 52%, rgba(3, 7, 14, 0.62) 100%);
 }
 
 .mist {
@@ -156,8 +175,16 @@ button {
   background: radial-gradient(circle at 18% 48%, rgba(129, 148, 214, 0.2), transparent 28%);
 }
 
+.ocean-mist-left {
+  background: radial-gradient(circle at 24% 30%, rgba(158, 197, 255, 0.16), transparent 26%);
+}
+
 .mist-right {
   background: radial-gradient(circle at 78% 24%, rgba(243, 198, 154, 0.12), transparent 24%);
+}
+
+.ocean-mist-right {
+  background: radial-gradient(circle at 76% 26%, rgba(255, 218, 182, 0.12), transparent 22%);
 }
 
 .rain-backdrop::before {
@@ -169,6 +196,104 @@ button {
     radial-gradient(circle at 22% 18%, rgba(255, 243, 230, 0.06), transparent 18%),
     radial-gradient(circle at 74% 32%, rgba(255, 245, 231, 0.05), transparent 20%);
   pointer-events: none;
+}
+
+.ocean-backdrop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 22%),
+    radial-gradient(circle at 50% 16%, rgba(255, 241, 221, 0.14), transparent 10%),
+    radial-gradient(circle at 50% 58%, rgba(132, 203, 255, 0.08), transparent 24%);
+  pointer-events: none;
+}
+
+.moon-glow {
+  top: 10%;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 240, 220, 0.32), rgba(255, 240, 220, 0) 68%);
+  filter: blur(8px);
+}
+
+.ocean-horizon {
+  top: 46%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(224, 240, 255, 0.34) 18%, rgba(255, 239, 220, 0.6) 50%, rgba(224, 240, 255, 0.34) 82%, transparent 100%);
+  opacity: 0.72;
+}
+
+.ocean-wave-layer {
+  top: auto;
+  left: -8%;
+  right: -8%;
+  border-radius: 45% 55% 0 0 / 100% 100% 0 0;
+  transform-origin: center bottom;
+  animation: tideDrift linear infinite;
+}
+
+.ocean-wave-back {
+  bottom: 16%;
+  height: 28%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(127, 185, 228, 0.22), rgba(20, 78, 126, 0.86) 58%, rgba(10, 39, 70, 0.96) 100%);
+  animation-duration: 18s;
+}
+
+.ocean-wave-mid {
+  bottom: 8%;
+  height: 24%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(115, 215, 255, 0.2), rgba(23, 96, 148, 0.88) 56%, rgba(8, 33, 60, 0.98) 100%);
+  animation-duration: 12s;
+  animation-direction: reverse;
+}
+
+.ocean-wave-front {
+  bottom: -2%;
+  height: 22%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(167, 238, 255, 0.26), rgba(18, 110, 163, 0.92) 52%, rgba(5, 26, 52, 1) 100%);
+  animation-duration: 8s;
+}
+
+.ocean-foam {
+  top: auto;
+  bottom: 14%;
+  height: 10%;
+  background:
+    radial-gradient(circle at 18% 58%, rgba(255, 255, 255, 0.3) 0 2px, transparent 3px),
+    radial-gradient(circle at 42% 42%, rgba(255, 255, 255, 0.2) 0 2px, transparent 3px),
+    radial-gradient(circle at 68% 56%, rgba(255, 255, 255, 0.26) 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 40%, rgba(255, 255, 255, 0.18) 0 2px, transparent 3px);
+  filter: blur(1px);
+  opacity: 0.72;
+  animation: foamShift 9s ease-in-out infinite;
+}
+
+@keyframes tideDrift {
+  0% {
+    transform: translate3d(-2%, 0, 0) scaleX(1.02);
+  }
+  50% {
+    transform: translate3d(2%, 1.2%, 0) scaleX(1);
+  }
+  100% {
+    transform: translate3d(-2%, 0, 0) scaleX(1.02);
+  }
+}
+
+@keyframes foamShift {
+  0%,
+  100% {
+    transform: translateX(-1.5%);
+    opacity: 0.56;
+  }
+  50% {
+    transform: translateX(1.5%);
+    opacity: 0.82;
+  }
 }
 
 .city-glow {

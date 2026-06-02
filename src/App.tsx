@@ -74,14 +74,6 @@ const TIMER_SCALE_MS = 1000
 const FALL_ASLEEP_BUFFER_MINUTES = 15
 const SLEEP_CYCLE_MINUTES = 90
 
-const rainDrops = Array.from({ length: 58 }, (_, index) => ({
-  id: index,
-  left: `${(index * 1.77) % 100}%`,
-  delay: `${(index % 17) * 0.19}s`,
-  duration: `${1.7 + (index % 7) * 0.22}s`,
-  opacity: 0.12 + (index % 5) * 0.06,
-}))
-
 const formatTimerLabel = (timeLeftMs: number | null, timerMinutes: TimerOption) => {
   if (timeLeftMs !== null) {
     return `${Math.max(Math.ceil(timeLeftMs / TIMER_SCALE_MS), 0)} min left`
@@ -132,6 +124,7 @@ const App = () => {
   const isBrownNoisePage = normalizedPath === '/brown-noise-for-sleep'
   const isSleepCalculatorPage = normalizedPath === '/sleep-calculator'
   const isFallAsleepFastPage = normalizedPath === '/fall-asleep-fast'
+  const isWakeUpAt3amPage = normalizedPath === '/wake-up-at-3am'
   const isNoiseToolPage = isWhiteNoisePage || isBrownNoisePage
   const [wakeTime, setWakeTime] = useState(() => {
     if (typeof window === 'undefined') return '07:00'
@@ -165,10 +158,10 @@ const App = () => {
   const sleepCycles = useMemo(() => buildSleepCycles(timeInputToMinutes(wakeTime)), [wakeTime])
 
   useEffect(() => {
-    if (isWhiteNoisePage) {
+    if (isWhiteNoisePage || isWakeUpAt3amPage) {
       setSelectedSound('white')
       setSelectedScenario('wake-up-3am')
-      setTimerMinutes(30)
+      setTimerMinutes(isWakeUpAt3amPage ? 10 : 30)
     }
 
     if (isBrownNoisePage) {
@@ -176,26 +169,30 @@ const App = () => {
       setSelectedScenario('cant-sleep')
       setTimerMinutes(45)
     }
-  }, [isBrownNoisePage, isWhiteNoisePage])
+  }, [isBrownNoisePage, isWakeUpAt3amPage, isWhiteNoisePage])
 
   useEffect(() => {
     const title = isWhiteNoisePage
-      ? 'White Noise for Sleep — Play Instantly in Your Browser | Sleepfast'
+        ? 'White Noise for Sleep — Play Instantly in Your Browser | Sleepfast'
       : isBrownNoisePage
         ? 'Brown Noise for Sleep — Play Instantly in Your Browser | Sleepfast'
         : isSleepCalculatorPage
           ? 'Sleep Calculator — Best Bedtime and Wake Time Tool | Sleepfast'
           : isFallAsleepFastPage
             ? 'Fall Asleep Fast — Sleep Sounds and Bedtime Reset | Sleepfast'
+            : isWakeUpAt3amPage
+              ? 'Wake Up at 3AM — Fall Back Asleep Faster | Sleepfast'
             : 'Sleepfast — Fall asleep faster tonight'
     const description = isWhiteNoisePage
-      ? 'Play white noise for sleep instantly in your browser with a simple timer, light-sleeper masking, and a calmer way to restart sleep after waking up at night.'
+        ? 'Play white noise for sleep instantly in your browser with a simple timer, light-sleeper masking, and a calmer way to restart sleep after waking up at night.'
       : isBrownNoisePage
         ? 'Play brown noise for sleep instantly in your browser with a deeper low-end layer for racing thoughts, city noise, and harder-to-settle nights.'
         : isSleepCalculatorPage
           ? 'Use the Sleepfast sleep calculator to find better bedtimes based on 90-minute sleep cycles, then start sleep sounds right away in your browser.'
           : isFallAsleepFastPage
             ? 'Fall asleep fast with instant browser sleep sounds, a simple bedtime reset, and calmer steps for racing thoughts or noisy nights.'
+            : isWakeUpAt3amPage
+              ? 'Use Sleepfast to fall back asleep after waking up at 3AM with instant white noise, a short restart timer, and a calmer middle-of-the-night reset.'
             : 'Sleepfast helps you fall asleep faster with calming sleep sounds, a simple timer, and problem-based bedtime tools right in your browser.'
 
     document.title = title
@@ -212,7 +209,7 @@ const App = () => {
     updateMeta('meta[property="og:description"]', description)
     updateMeta('meta[name="twitter:title"]', title)
     updateMeta('meta[name="twitter:description"]', description)
-  }, [isBrownNoisePage, isFallAsleepFastPage, isSleepCalculatorPage, isWhiteNoisePage])
+  }, [isBrownNoisePage, isFallAsleepFastPage, isSleepCalculatorPage, isWakeUpAt3amPage, isWhiteNoisePage])
 
   const stopPlayback = () => {
     noiseSourceRef.current?.stop?.()
@@ -967,6 +964,210 @@ const App = () => {
     )
   }
 
+  if (isWakeUpAt3amPage) {
+    return (
+      <main className="app-shell tool-shell">
+        <section className="tool-hero rain-stage">
+          <div className="top-brandbar">
+            <a className="brand-lockup" aria-label="Sleepfast home" href="/">
+              <CatMark className="brand-cat" />
+              <div className="brand-copy">
+                <span className="brand-name">Sleepfast</span>
+                <span className="brand-tag">wake up at 3am</span>
+              </div>
+            </a>
+          </div>
+
+          <div className="rain-backdrop tool-backdrop" aria-hidden="true">
+            <div className="night-vignette" />
+            <div className="mist mist-left" />
+            <div className="mist mist-right" />
+            <div className="city-glow" />
+            <div className="window-sheen" />
+          </div>
+
+          <div className="tool-layout">
+            <section className="tool-copy glass-panel">
+              <span className="eyebrow">Wake up at 3AM</span>
+              <h1>Fall back asleep faster after a 3AM wake-up.</h1>
+              <p className="hero-text tool-subtitle">
+                Start instant white noise, keep the room steady, and use a short middle-of-the-night reset instead of fully waking yourself up trying to fix sleep.
+              </p>
+              <div className="result-pills" aria-label="Wake up at 3AM benefits">
+                <span>Instant white noise restart</span>
+                <span>Built for late-night wake-ups</span>
+                <span>Simple 10 minute reset</span>
+              </div>
+              <div className="cta-row">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    setSelectedSound('white')
+                    if (selectedScenario !== 'wake-up-3am') {
+                      setSelectedScenario('wake-up-3am')
+                    }
+                    setTimerMinutes(10)
+                    await handleTogglePlayback()
+                  }}
+                >
+                  {isPlaying && selectedSound === 'white' ? 'Pause the 3AM reset' : 'Start the 3AM reset'}
+                </button>
+                <a className="text-link" href="#wake-up-at-3am-tool">
+                  Jump to the reset steps
+                </a>
+              </div>
+              <p className="quiet-line tool-quiet-line">
+                Best when you woke suddenly, checked the time, and can feel yourself getting more alert the longer the room stays too sharp or too silent.
+              </p>
+            </section>
+
+            <aside className="player-card player-card-healing glass-panel tool-player-card" id="wake-up-at-3am-tool">
+              <div className="now-playing now-playing-minimal">
+                <span className="player-kicker">3AM sleep restart</span>
+                <h2>White Noise</h2>
+                <p className="comfort-note">
+                  Use one steady masking layer, skip track-hopping, and give your brain fewer reasons to fully come back online.
+                </p>
+              </div>
+
+              <div className="sleep-reset-list">
+                <button
+                  type="button"
+                  className={`sleep-reset-item glass-subpanel ${selectedScenario === 'wake-up-3am' ? 'active' : ''}`}
+                  onClick={() => void applyScenario(scenarios[1])}
+                >
+                  <div>
+                    <span className="sleep-cycle-kicker">Default restart preset</span>
+                    <strong>White Noise · 10 min</strong>
+                  </div>
+                  <p>Restart sleep quickly without turning a brief wake-up into a full awake window.</p>
+                </button>
+                <button
+                  type="button"
+                  className={`sleep-reset-item glass-subpanel ${selectedSound === 'rain' ? 'active' : ''}`}
+                  onClick={async () => {
+                    setSelectedScenario('wake-up-3am')
+                    setSelectedSound('rain')
+                    setTimerMinutes(20)
+                    if (isPlaying) {
+                      await startSound('rain')
+                      timerDeadlineRef.current = Date.now() + 20 * TIMER_SCALE_MS
+                      setTimeLeftMs(20 * TIMER_SCALE_MS)
+                    }
+                  }}
+                >
+                  <div>
+                    <span className="sleep-cycle-kicker">Gentler backup</span>
+                    <strong>Rain on Window · 20 min</strong>
+                  </div>
+                  <p>Switch here if white noise feels too crisp and you need a softer texture before drifting back down.</p>
+                </button>
+              </div>
+
+              <div className="control-drawer glass-subpanel control-drawer-healing control-drawer-open">
+                <div className="player-controls">
+                  <div className="timer-block timer-block-minimal">
+                    <div className="timer-label-row timer-label-row-minimal">
+                      <strong>Restart timer</strong>
+                      <span>{formatTimerLabel(timeLeftMs, timerMinutes)}</span>
+                    </div>
+                    <div className="timer-row">
+                      {timerOptions.map((option) => (
+                        <button
+                          key={option}
+                          type="button"
+                          className={option === timerMinutes ? 'active' : ''}
+                          onClick={() => {
+                            setTimerMinutes(option)
+                            if (isPlaying) {
+                              timerDeadlineRef.current = Date.now() + option * TIMER_SCALE_MS
+                              setTimeLeftMs(option * TIMER_SCALE_MS)
+                            }
+                          }}
+                        >
+                          {option} min
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="player-footer player-footer-artful player-footer-healing player-footer-single">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    setSelectedSound('white')
+                    await handleTogglePlayback()
+                  }}
+                >
+                  {isPlaying && selectedSound === 'white' ? 'Keep the room steady' : 'Use white noise now'}
+                </button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section className="tool-sections">
+          <section className="tool-section glass-panel">
+            <h2>What to do when you wake up at 3AM</h2>
+            <p>
+              The goal is not to make the perfect fix. It is to avoid giving your brain more light, more decisions, or more stimulation than the wake-up already created.
+            </p>
+            <p>
+              Sleepfast is built for that exact moment: start one steady layer, keep your eyes off everything else, and let the room feel less exposed while your body settles again.
+            </p>
+          </section>
+
+          <section className="tool-section glass-panel">
+            <h2>A simple 3AM reset</h2>
+            <ul className="tool-list">
+              <li>Do not start scrolling or checking more than the time once.</li>
+              <li>Play one steady sound and keep the volume low enough that it feels like coverage, not activity.</li>
+              <li>Pick a short timer so you can relax back into sleep without worrying about managing playback.</li>
+            </ul>
+          </section>
+
+          <section className="tool-section glass-panel">
+            <h2>FAQ</h2>
+            <div className="faq-list">
+              <div>
+                <h3>Why does waking up at 3AM feel so activating?</h3>
+                <p>Because the room is quiet, your mind notices the wake-up fast, and even small choices can make you feel more awake than you were a minute earlier.</p>
+              </div>
+              <div>
+                <h3>Should I use white noise or rain after waking up?</h3>
+                <p>White noise is usually better if outside sounds or house sounds keep pulling your attention. Rain is a good fallback if you want something softer and less neutral.</p>
+              </div>
+              <div>
+                <h3>How long should the restart timer be?</h3>
+                <p>Start with 10 minutes for a brief wake-up. Go longer only if you know your room stays noisy or your body takes more time to settle back down.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="conversion-story glass-panel tool-cta-panel">
+            <div className="conversion-intro">
+              <span className="eyebrow">Keep going with Sleepfast</span>
+              <h2>Need help before bed too, not just after waking up?</h2>
+              <p>
+                Go back to the full Sleepfast player for rain, ocean, brown noise, white noise, and a calmer homepage experience built for falling asleep faster before the 3AM wake-up even starts.
+              </p>
+            </div>
+            <div className="tool-cta-actions">
+              <a className="link-button" href="/">
+                Open the full Sleepfast player
+              </a>
+              <a className="text-link" href="/white-noise-for-sleep">
+                Or try white noise for sleep
+              </a>
+            </div>
+          </section>
+        </section>
+      </main>
+    )
+  }
+
   return (
     <main className="app-shell">
       <section className="rain-stage">
@@ -979,64 +1180,51 @@ const App = () => {
             </div>
           </div>
         </div>
-        <div className="rain-backdrop" aria-hidden="true">
-          <div className="night-vignette" />
-          <div className="mist mist-left" />
-          <div className="mist mist-right" />
-          <div className="city-glow" />
-          <div className="window-frame frame-left" />
-          <div className="window-frame frame-right" />
-          <div className="window-frame frame-top" />
-          <div className="window-sheen" />
-          <div className="rain-layer">
-            {rainDrops.map((drop) => (
-              <span
-                key={drop.id}
-                className="rain-drop"
-                style={{
-                  left: drop.left,
-                  animationDelay: drop.delay,
-                  animationDuration: drop.duration,
-                  opacity: drop.opacity,
-                }}
-              />
-            ))}
-          </div>
+        <div className="rain-backdrop ocean-backdrop" aria-hidden="true">
+          <div className="night-vignette ocean-vignette" />
+          <div className="mist mist-left ocean-mist-left" />
+          <div className="mist mist-right ocean-mist-right" />
+          <div className="moon-glow" />
+          <div className="ocean-horizon" />
+          <div className="ocean-wave-layer ocean-wave-back" />
+          <div className="ocean-wave-layer ocean-wave-mid" />
+          <div className="ocean-wave-layer ocean-wave-front" />
+          <div className="ocean-foam" />
         </div>
 
         <div className="hero-layout">
           <section className="story-panel">
             <div className="story-copy glass-panel">
               <div className="hero-badge-row">
-                <span className="eyebrow">Rain at the window</span>
+                <span className="eyebrow">Moon over the water</span>
                 <div className="hero-cat-badge" aria-label="Sleepfast cat mark">
                   <CatMark className="hero-cat" />
                 </div>
               </div>
-              <p className="micro-copy">Built to help you fall asleep faster tonight — and restart sleep faster after a rough 3 AM wake-up.</p>
-              <h1>Come back to the softest part of the night.</h1>
+              <p className="micro-copy">For the nights when your body is tired, but your thoughts still keep washing back in.</p>
+              <h1>Let the waves carry the day a little farther away.</h1>
               <p className="hero-text">
-                Sleepfast gives you instant browser-based sleep sounds for racing thoughts, noisy rooms, and the fragile stretch between feeling tired and actually drifting off.
+                Sleepfast turns the room into a softer shoreline — moving water, steady sound, and just enough rhythm to help your breathing slow down with it.
               </p>
               <p className="result-line">
-                Not another sleep system to manage — just a calmer way to fall asleep faster, stay less reactive to noise, and gently settle back down when sleep breaks.
+                Open it, press play, and let the ocean keep moving so you do not have to keep holding everything still by yourself.
               </p>
               <div className="result-pills result-pills-minimal" aria-label="Sleepfast outcomes">
-                <span>Fall asleep faster tonight</span>
-                <span>Restart sleep after wake-ups</span>
+                <span>Moving ocean calm</span>
+                <span>Better for restless nights</span>
               </div>
 
               <div className="cta-row cta-row-single">
                 <button type="button" onClick={() => void handleTogglePlayback()}>
-                  {isPlaying ? 'Stay here a little longer' : 'Let the rain stay with me'}
+                  {isPlaying ? 'Stay with the tide' : 'Let the waves stay with me'}
                 </button>
               </div>
 
-              <p className="quiet-line">No setup. No effort. Just one softer thing to reach for before sleep.</p>
+              <p className="quiet-line">No setup. Just one moving horizon, one sound, and a little less to carry into sleep.</p>
             </div>
 
             <div className="scenario-row scenario-row-whisper">
-              <span className="scenario-whisper">If tonight feels restless, you can still choose a gentler starting point.</span>
+              <span className="scenario-whisper">If the tide in your head still feels choppy, choose a gentler starting point.</span>
               {scenarios.map((scenario) => (
                 <button
                   key={scenario.id}
@@ -1052,9 +1240,9 @@ const App = () => {
 
           <aside className="player-card player-card-healing glass-panel">
             <div className="now-playing now-playing-minimal">
-              <span className="player-kicker">Tonight's comfort</span>
+              <span className="player-kicker">Tonight's shoreline</span>
               <h2>{currentSound.name}</h2>
-              <p className="comfort-note">A small moonlit corner for the moment your shoulders are tired, but the rest of you has not landed yet.</p>
+              <p className="comfort-note">A small moonlit shoreline for the moment your shoulders are tired, but the rest of you has not drifted there yet.</p>
             </div>
 
             <div className="ambient-preview ambient-preview-healing" aria-hidden="true">
@@ -1067,13 +1255,13 @@ const App = () => {
             </div>
 
             <div className="ritual-copy">
-              <span className="ritual-label">Bedtime ritual</span>
-              <p>Choose one sound, dim the room, and stay with it without adjusting much. The calmer this feels, the better it works.</p>
+              <span className="ritual-label">Ocean ritual</span>
+              <p>Choose one sound, dim the room, and let the water keep moving without changing much. The less you manage, the easier it is to drift.</p>
             </div>
 
             <div className="player-footer player-footer-artful player-footer-healing player-footer-single">
               <button type="button" onClick={() => void handleTogglePlayback()}>
-                {isPlaying ? 'Stay inside the quiet' : 'Keep this beside me'}
+                {isPlaying ? 'Stay inside the tide' : 'Keep these waves beside me'}
               </button>
               <button
                 type="button"
