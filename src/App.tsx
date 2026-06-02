@@ -172,6 +172,12 @@ const toolLinks: ToolLink[] = [
     description: 'See the best time to wake up from a 20, 30, or 90 minute nap, then move straight into a calmer Sleepfast reset.',
   },
   {
+    href: '/jet-lag-calculator',
+    kicker: 'For travel recovery',
+    title: 'Jet lag calculator',
+    description: 'Plan a realistic first-night bedtime in a new time zone, then move into a calmer Sleepfast reset without overthinking the clock.',
+  },
+  {
     href: '/fall-asleep-fast',
     kicker: 'For tonight’s reset',
     title: 'Fall asleep fast',
@@ -369,6 +375,7 @@ const App = () => {
   const isOceanSoundsPage = normalizedPath === '/ocean-sounds-for-sleep'
   const isSleepCalculatorPage = normalizedPath === '/sleep-calculator'
   const isNapCalculatorPage = normalizedPath === '/nap-calculator'
+  const isJetLagCalculatorPage = normalizedPath === '/jet-lag-calculator'
   const isSleepBreathingExercisePage = normalizedPath === '/sleep-breathing-exercise'
   const isFallAsleepFastPage = normalizedPath === '/fall-asleep-fast'
   const isWakeUpAt3amPage = normalizedPath === '/wake-up-at-3am'
@@ -502,6 +509,8 @@ const App = () => {
           ? 'Sleep Calculator — Best Bedtime and Wake Time Tool | Sleepfast'
           : isNapCalculatorPage
             ? 'Nap Calculator — Best Nap Length and Wake-Up Time Tool | Sleepfast'
+          : isJetLagCalculatorPage
+            ? 'Jet Lag Calculator — First-Night Sleep Plan for Travel | Sleepfast'
           : isSleepBreathingExercisePage
             ? 'Sleep Breathing Exercise — 4-7-8 Reset for Bedtime | Sleepfast'
           : isFallAsleepFastPage
@@ -525,6 +534,8 @@ const App = () => {
           ? 'Use the Sleepfast sleep calculator to find better bedtimes based on 90-minute sleep cycles, then start sleep sounds right away in your browser.'
           : isNapCalculatorPage
             ? 'Use the Sleepfast nap calculator to see the best wake-up time for a 20, 30, or 90 minute nap, then move into a calmer browser reset right away.'
+          : isJetLagCalculatorPage
+            ? 'Use the Sleepfast jet lag calculator to find a realistic first-night bedtime after travel, then move into a calmer browser sleep reset right away.'
           : isSleepBreathingExercisePage
             ? 'Use a simple 4-7-8 sleep breathing exercise in your browser to calm down before bed, then move into Sleepfast sounds for the rest of the night.'
           : isFallAsleepFastPage
@@ -551,7 +562,7 @@ const App = () => {
     updateMeta('meta[property="og:description"]', description)
     updateMeta('meta[name="twitter:title"]', title)
     updateMeta('meta[name="twitter:description"]', description)
-  }, [isBrownNoisePage, isFallAsleepFastPage, isMindRacingAtNightPage, isNapCalculatorPage, isOceanSoundsPage, isRainSoundsPage, isSleepBetterTonightPage, isSleepBreathingExercisePage, isSleepCalculatorPage, isWakeUpAt3amPage, isWhiteNoisePage])
+  }, [isBrownNoisePage, isFallAsleepFastPage, isJetLagCalculatorPage, isMindRacingAtNightPage, isNapCalculatorPage, isOceanSoundsPage, isRainSoundsPage, isSleepBetterTonightPage, isSleepBreathingExercisePage, isSleepCalculatorPage, isWakeUpAt3amPage, isWhiteNoisePage])
 
   useEffect(() => {
     if (!breathingActive) return undefined
@@ -2048,6 +2059,181 @@ const App = () => {
               </a>
               <a className="text-link" href="/sleep-better-tonight">
                 Or open sleep better tonight
+              </a>
+            </div>
+          </section>
+        </section>
+      </main>
+    )
+  }
+
+  if (isJetLagCalculatorPage) {
+    return (
+      <main className="app-shell tool-shell">
+        <section className="tool-hero rain-stage">
+          <div className="top-brandbar">
+            <a className="brand-lockup" aria-label="Sleepfast home" href="/">
+              <CatMark className="brand-cat" />
+              <div className="brand-copy">
+                <span className="brand-name">Sleepfast</span>
+                <span className="brand-tag">jet lag calculator</span>
+              </div>
+            </a>
+          </div>
+
+          <div className="rain-backdrop tool-backdrop" aria-hidden="true">
+            <div className="night-vignette" />
+            <div className="mist mist-left" />
+            <div className="mist mist-right" />
+            <div className="deep-space-glow" />
+            <div className="floating-stars deep-space-stars" />
+          </div>
+
+          <div className="tool-layout">
+            <section className="tool-copy glass-panel">
+              <span className="eyebrow">Jet lag calculator</span>
+              <h1>Build a calmer first-night sleep plan after travel.</h1>
+              <p className="hero-text tool-subtitle">
+                Pick the local time you need to wake up tomorrow and get realistic bedtime targets for your first night in the new time zone, then bridge straight into a softer Sleepfast reset.
+              </p>
+              <div className="result-pills" aria-label="Jet lag calculator benefits">
+                <span>First-night travel bedtime targets</span>
+                <span>Built around 90 minute sleep cycles</span>
+                <span>Fast bridge into a calmer sleep reset</span>
+              </div>
+              <div className="cta-row">
+                <a className="link-button" href="#jet-lag-calculator-tool">
+                  Use the jet lag calculator
+                </a>
+                <a className="text-link" href="/sleep-breathing-exercise">
+                  Or do a quick breathing reset
+                </a>
+              </div>
+              <p className="quiet-line tool-quiet-line">
+                Best when travel, hotel noise, or a shifted body clock makes it harder to know when to actually get in bed tonight.
+              </p>
+            </section>
+
+            <aside className="player-card player-card-healing glass-panel tool-player-card sleep-calculator-card" id="jet-lag-calculator-tool">
+              <div className="now-playing now-playing-minimal">
+                <span className="player-kicker">Tomorrow in the new time zone</span>
+                <h2>Wake up at {formatMinutesForHumans(timeInputToMinutes(wakeTime))}</h2>
+                <p className="comfort-note">Use the wake-up time you actually need after travel. Sleepfast will turn it into a simpler first-night bedtime plan you can follow without more math.</p>
+              </div>
+
+              <div className="sleep-calculator-input glass-subpanel">
+                <label htmlFor="jet-lag-wake-time">Need to wake up at</label>
+                <input
+                  id="jet-lag-wake-time"
+                  type="time"
+                  value={wakeTime}
+                  onChange={(event) => setWakeTime(event.target.value)}
+                />
+                <p>
+                  Uses common sleep-cycle timing so your first night after flying can stay simpler and more realistic.
+                </p>
+              </div>
+
+              <div className="sleep-cycle-list">
+                {sleepCycles.map((cycle, index) => (
+                  <div className={`sleep-cycle-item glass-subpanel ${index === 0 ? 'recommended' : ''}`} key={cycle.label}>
+                    <div>
+                      <span className="sleep-cycle-kicker">{index === 0 ? 'Best full-night target' : cycle.label}</span>
+                      <strong>Get in bed at {cycle.bedtime}</strong>
+                    </div>
+                    <p>Try to be asleep by {cycle.sleepTime} if you want a steadier first night instead of guessing when jet lag will hit.</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="tool-bridge-card glass-subpanel">
+                <span className="sleep-cycle-kicker">Travel recovery bridge</span>
+                <strong>Use one reset before bed so the room feels less sharp.</strong>
+                <p>Start a short breathing reset if your body feels wired from travel, or move into Ocean Waves when you want a steadier overnight layer without opening another app.</p>
+                <div className="tool-bridge-links">
+                  <a className="text-link" href="/sleep-breathing-exercise">
+                    Open the breathing reset
+                  </a>
+                  <a className="text-link" href="/ocean-sounds-for-sleep">
+                    Play ocean sounds now
+                  </a>
+                </div>
+              </div>
+
+              <div className="player-footer player-footer-artful player-footer-healing player-footer-single">
+                <a className="link-button" href="/sleep-better-tonight">
+                  Use Sleepfast tonight too
+                </a>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section className="tool-sections">
+          <section className="tool-section glass-panel">
+            <h2>How this jet lag calculator works</h2>
+            <p>
+              Travel can make bedtime feel confusing because your body and the local clock stop agreeing. This calculator keeps the answer simple by starting from the time you need to wake up tomorrow and working backward in sleep cycles.
+            </p>
+            <p>
+              It is not trying to solve every part of jet lag. It gives you a realistic first-night target fast, then points you into a softer Sleepfast reset so you can stop chasing the perfect travel routine.
+            </p>
+          </section>
+
+          <section className="tool-section glass-panel">
+            <h2>When to use it</h2>
+            <ul className="tool-list">
+              <li>When you landed late and need a practical first-night bedtime in the new time zone.</li>
+              <li>When tomorrow has a fixed wake-up time and you want to avoid guessing how much sleep you can still get.</li>
+              <li>When travel stress, hotel noise, or overstimulation makes you want one simpler browser-first reset.</li>
+            </ul>
+          </section>
+
+          <section className="tool-section glass-panel">
+            <h2>FAQ</h2>
+            <div className="faq-list">
+              <div>
+                <h3>Does a jet lag calculator remove jet lag completely?</h3>
+                <p>No. It helps you make a cleaner first-night plan so you can stop doing the bedtime math while you are already tired from travel.</p>
+              </div>
+              <div>
+                <h3>Why use sleep cycles for jet lag?</h3>
+                <p>Because even when your body clock feels off, planning around full sleep cycles is still a practical way to choose a bedtime and reduce the chance of a rough wake-up.</p>
+              </div>
+              <div>
+                <h3>What should I do after I pick a bedtime?</h3>
+                <p>Keep the room dim, avoid more stimulation, and start one steady sound so your first night feels held by a routine instead of another set of decisions.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="tool-section glass-panel related-tools-panel">
+            <h2>More Sleepfast tools for tonight</h2>
+            <div className="related-tools-grid">
+              {relatedToolLinks.map((tool) => (
+                <a key={tool.href} className="related-tool-link glass-subpanel" href={tool.href}>
+                  <span className="related-tool-kicker">{tool.kicker}</span>
+                  <strong>{tool.title}</strong>
+                  <p>{tool.description}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+
+          <section className="conversion-story glass-panel tool-cta-panel">
+            <div className="conversion-intro">
+              <span className="eyebrow">Keep going with Sleepfast</span>
+              <h2>Got the travel bedtime? Pair it with a steadier room.</h2>
+              <p>
+                Use the jet lag calculator to pick a realistic first-night target, then switch into Sleepfast sounds for the part that still matters most: actually letting your body settle in a new place.
+              </p>
+            </div>
+            <div className="tool-cta-actions">
+              <a className="link-button" href="/">
+                Open the full Sleepfast player
+              </a>
+              <a className="text-link" href="/ocean-sounds-for-sleep">
+                Or try ocean sounds for sleep
               </a>
             </div>
           </section>
@@ -3663,6 +3849,11 @@ const App = () => {
               <span className="tool-directory-kicker">For daytime recovery</span>
               <strong>Nap calculator</strong>
               <p>See when to wake up from a 20, 30, or 90 minute nap without opening another app.</p>
+            </a>
+            <a className="tool-directory-card glass-subpanel" href="/jet-lag-calculator">
+              <span className="tool-directory-kicker">For travel recovery</span>
+              <strong>Jet lag calculator</strong>
+              <p>Plan a realistic first-night bedtime after travel, then move into a calmer browser sleep reset.</p>
             </a>
             <a className="tool-directory-card glass-subpanel" href="/sleep-breathing-exercise">
               <span className="tool-directory-kicker">For fast calming</span>

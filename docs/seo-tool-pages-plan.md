@@ -51,6 +51,7 @@
 - 用户意图：旅行、倒时差
 - 工具：简单倒时差建议 + 对应助眠入口
 - CTA：Start a sleep reset sound
+- 当前状态：已上线并完成 production 核验，正式域名首屏可直接输入次日当地起床时间并得到第一晚 bedtime 建议，同时桥接 `/sleep-breathing-exercise` 与 `/ocean-sounds-for-sleep`，先补齐 travel recovery 到核心播放器的最小闭环
 
 #### 4. `/sleep-breathing-exercise`
 - 主关键词：sleep breathing exercise

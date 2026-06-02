@@ -215,6 +215,8 @@ Sleepfast 是一款面向年轻失眠、轻度焦虑用户的轻量化高颜值�
 
 当前 Web MVP 已把首页与工具页之间的 SEO 承接扩到 `/nap-calculator`，首屏即可输入 nap 开始时间并得到 20 / 30 / 90 分钟结束时间，同时桥接 `/sleep-breathing-exercise` 与 `/rain-sounds-for-sleep`，先补齐 daytime recovery 到核心声音体验的最小闭环。
 
+当前 Web MVP 已新增 `/jet-lag-calculator`，首屏即可输入落地后次日的本地起床时间并得到第一晚 bedtime 建议，同时桥接 `/sleep-breathing-exercise` 与 `/ocean-sounds-for-sleep`，先补齐 travel recovery 到核心声音体验的最小闭环。
+
 ---
 
 ## 3.4 模块四：基础工具能力（P0）
