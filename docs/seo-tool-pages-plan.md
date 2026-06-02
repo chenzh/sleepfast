@@ -97,6 +97,7 @@
 #### 9. `/fall-asleep-fast`
 - 主关键词：fall asleep fast
 - 页面结构：问题解释 + 直接播放器 + 快速建议
+- 当前状态：已在首屏播放器下补上通往 `/sleep-breathing-exercise` 与 `/sleep-calculator` 的桥接入口，并新增保存当前声音 + 一键重播收藏/最近播放入口，先把“今晚想快点睡着 → 先呼吸放松 / 校准 bedtime / 保存常用声音 → 回到单一声音重置”的最小闭环收口
 
 #### 10. `/mind-racing-at-night`
 - 主关键词：mind racing at night
@@ -106,7 +107,7 @@
 #### 11. `/wake-up-at-3am`
 - 主关键词：wake up at 3am can’t fall back asleep
 - 页面结构：夜醒场景建议 + 白噪音/短时计时器
-- 当前状态：已在首屏播放器下补上通往 `/sleep-breathing-exercise` 的桥接入口，先把“夜醒过于清醒 → 先呼吸缓下来 → 再进白噪音/雨声”路径收口
+- 当前状态：已在首屏播放器下补上通往 `/sleep-breathing-exercise` 的桥接入口，并新增保存当前声音 + 一键重播收藏/最近播放入口，先把“夜醒过于清醒 → 先呼吸缓下来 → 再进白噪音/雨声”路径收口
 
 #### 12. `/sleep-better-tonight`
 - 主关键词：sleep better tonight

@@ -100,6 +100,13 @@ const scenarios: Scenario[] = [
     timer: 10,
     benefit: 'Restart sleep quickly without committing to an all-night loop.',
   },
+  {
+    id: 'mind-wont-slow',
+    name: "Mind won't slow down",
+    soundId: 'brown',
+    timer: 30,
+    benefit: 'Switch to a deeper brown-noise layer when silence makes looping thoughts feel louder.',
+  },
 ]
 
 const timerOptions: TimerOption[] = [10, 20, 30, 45, 60]
@@ -2287,6 +2294,24 @@ const App = () => {
               <p className="quiet-line tool-quiet-line">
                 Best when your thoughts are loud, your chest feels tight, or you need a calmer bridge before switching on rain, ocean, or noise.
               </p>
+
+              <div className="reset-mode-grid">
+                <div className="reset-mode-card glass-subpanel">
+                  <span className="sleep-cycle-kicker">For overthinking</span>
+                  <strong>Do 2 cycles, then move into Brown Noise.</strong>
+                  <p>Best when breathing helps your body soften but your thoughts still keep trying to sprint.</p>
+                </div>
+                <div className="reset-mode-card glass-subpanel">
+                  <span className="sleep-cycle-kicker">For a 3AM restart</span>
+                  <strong>Do 1 to 2 cycles, then restart with White Noise.</strong>
+                  <p>Use the shortest path back into sleep when you woke suddenly and do not want to fully come online.</p>
+                </div>
+                <div className="reset-mode-card glass-subpanel">
+                  <span className="sleep-cycle-kicker">For a slower drift</span>
+                  <strong>Do 3 to 4 cycles, then let Ocean Waves take over.</strong>
+                  <p>Best when your body is still carrying stress and you want a longer, gentler unwind instead of a quick restart.</p>
+                </div>
+              </div>
             </section>
 
             <aside className="player-card player-card-healing glass-panel tool-player-card breathing-tool-card" id="sleep-breathing-tool">
@@ -2503,6 +2528,16 @@ const App = () => {
                 </p>
               </div>
 
+              <div className="utility-row utility-row-saved">
+                <button
+                  type="button"
+                  className={`utility-chip ${favoriteSoundIds.includes(selectedSound) ? 'active' : ''}`}
+                  onClick={() => toggleFavoriteSound(selectedSound)}
+                >
+                  {favoriteSoundIds.includes(selectedSound) ? 'Saved for later' : 'Save this sound'}
+                </button>
+              </div>
+
               <div className="sleep-reset-list">
                 {scenarios.map((scenario) => (
                   <button
@@ -2589,6 +2624,58 @@ const App = () => {
                       <span className="custom-timer-note">Use 1–180 minutes for naps, longer drift, or travel recovery.</span>
                     </div>
                   </div>
+                </div>
+
+                <div className="saved-panel glass-subpanel">
+                  <div className="saved-panel-section">
+                    <div className="saved-panel-header">
+                      <strong>Saved for later</strong>
+                      <span>Keep go-to sounds one tap away.</span>
+                    </div>
+                    <div className="saved-chip-row">
+                      {favoriteSounds.length > 0 ? (
+                        favoriteSounds.map((sound) => (
+                          <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                            {sound.name}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="saved-empty-state">Save the sound you want to come back to tomorrow night.</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="saved-panel-section">
+                    <div className="saved-panel-header">
+                      <strong>Recent tonight</strong>
+                      <span>Restart the last room you used.</span>
+                    </div>
+                    <div className="saved-chip-row">
+                      {recentSounds.length > 0 ? (
+                        recentSounds.map((sound) => (
+                          <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                            {sound.name}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="saved-empty-state">Play one sound once and it will show up here for faster restarts.</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="tool-bridge-card glass-subpanel">
+                <span className="sleep-cycle-kicker">Need one calmer next step?</span>
+                <strong>Open the breathing reset first if your body still feels activated, or use the sleep calculator if tonight already started later than planned.</strong>
+                <p>That keeps this page from turning into more bedtime decision-making when you only need one sound and one next move to get back toward sleep.</p>
+                <div className="tool-bridge-links">
+                  <a className="text-link" href="/sleep-breathing-exercise">
+                    Open the breathing reset
+                  </a>
+                  <a className="text-link" href="/sleep-calculator">
+                    Use the sleep calculator
+                  </a>
                 </div>
               </div>
 
@@ -2740,6 +2827,16 @@ const App = () => {
                 </p>
               </div>
 
+              <div className="utility-row utility-row-saved">
+                <button
+                  type="button"
+                  className={`utility-chip ${favoriteSoundIds.includes(selectedSound) ? 'active' : ''}`}
+                  onClick={() => toggleFavoriteSound(selectedSound)}
+                >
+                  {favoriteSoundIds.includes(selectedSound) ? 'Saved for later' : 'Save this sound'}
+                </button>
+              </div>
+
               <div className="sleep-reset-list">
                 <button
                   type="button"
@@ -2824,6 +2921,44 @@ const App = () => {
                     </div>
                   </div>
                 </div>
+
+                <div className="saved-panel glass-subpanel">
+                  <div className="saved-panel-section">
+                    <div className="saved-panel-header">
+                      <strong>Saved for later</strong>
+                      <span>Keep go-to sounds one tap away.</span>
+                    </div>
+                    <div className="saved-chip-row">
+                      {favoriteSounds.length > 0 ? (
+                        favoriteSounds.map((sound) => (
+                          <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                            {sound.name}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="saved-empty-state">Save the sound you want to come back to tomorrow night.</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="saved-panel-section">
+                    <div className="saved-panel-header">
+                      <strong>Recent tonight</strong>
+                      <span>Restart the last room you used.</span>
+                    </div>
+                    <div className="saved-chip-row">
+                      {recentSounds.length > 0 ? (
+                        recentSounds.map((sound) => (
+                          <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                            {sound.name}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="saved-empty-state">Play one sound once and it will show up here for faster restarts.</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="player-footer player-footer-artful player-footer-healing player-footer-single">
@@ -2842,9 +2977,14 @@ const App = () => {
                 <span className="sleep-cycle-kicker">Need to settle first?</span>
                 <strong>Do a 4-7-8 breathing reset before restarting sleep.</strong>
                 <p>If the wake-up already made your chest or thoughts feel too active, use the guided breathing page first and then come back into rain or white noise.</p>
-                <a className="text-link" href="/sleep-breathing-exercise">
-                  Open the breathing reset
-                </a>
+                <div className="tool-bridge-links">
+                  <a className="text-link" href="/sleep-breathing-exercise">
+                    Open the breathing reset
+                  </a>
+                  <a className="text-link" href="/fall-asleep-fast">
+                    Or switch to the bedtime reset
+                  </a>
+                </div>
               </div>
             </aside>
           </div>
@@ -2994,7 +3134,7 @@ const App = () => {
                   type="button"
                   className={`sleep-reset-item glass-subpanel ${selectedSound === 'brown' ? 'active' : ''}`}
                   onClick={async () => {
-                    setSelectedScenario('cant-sleep')
+                    setSelectedScenario('mind-wont-slow')
                     setSelectedSound('brown')
                     setTimerMinutes(45)
                     if (isPlaying) {
@@ -3014,7 +3154,7 @@ const App = () => {
                   type="button"
                   className={`sleep-reset-item glass-subpanel ${selectedSound === 'white' ? 'active' : ''}`}
                   onClick={async () => {
-                    setSelectedScenario('cant-sleep')
+                    setSelectedScenario('mind-wont-slow')
                     setSelectedSound('white')
                     setTimerMinutes(30)
                     if (isPlaying) {
@@ -3538,6 +3678,19 @@ const App = () => {
               </div>
 
               <p className="quiet-line">No setup. Just one moving horizon, one sound, and a little less to carry into sleep.</p>
+
+              <div className="hero-support-grid">
+                <div className="hero-support-card glass-subpanel">
+                  <span className="sleep-cycle-kicker">If tonight looks familiar</span>
+                  <strong>Come back to one saved room instead of starting over.</strong>
+                  <p>Sleepfast keeps your favorite and most recent sounds close so hard nights need fewer new decisions.</p>
+                </div>
+                <div className="hero-support-card glass-subpanel">
+                  <span className="sleep-cycle-kicker">If free gets you close</span>
+                  <strong>Premium is for longer nights and harder restarts.</strong>
+                  <p>Use free for instant settling. Upgrade when you need longer overnight playback, gentler 3AM restarts, and more targeted presets.</p>
+                </div>
+              </div>
             </div>
 
             <div className="scenario-row scenario-row-whisper">
@@ -3608,6 +3761,44 @@ const App = () => {
               >
                 {favoriteSoundIds.includes(selectedSound) ? 'Saved for later' : 'Save this sound'}
               </button>
+            </div>
+
+            <div className="saved-panel glass-subpanel saved-panel-hero">
+              <div className="saved-panel-section">
+                <div className="saved-panel-header">
+                  <strong>Saved rooms</strong>
+                  <span>Come back to the sounds that already feel safe.</span>
+                </div>
+                <div className="saved-chip-row">
+                  {favoriteSounds.length > 0 ? (
+                    favoriteSounds.map((sound) => (
+                      <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                        {sound.name}
+                      </button>
+                    ))
+                  ) : (
+                    <p className="saved-empty-state">Save your calmest sound once and it will stay ready here for tomorrow night.</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="saved-panel-section">
+                <div className="saved-panel-header">
+                  <strong>Restart tonight</strong>
+                  <span>Pick up the last room you already trusted.</span>
+                </div>
+                <div className="saved-chip-row">
+                  {recentSounds.length > 0 ? (
+                    recentSounds.map((sound) => (
+                      <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                        {sound.name}
+                      </button>
+                    ))
+                  ) : (
+                    <p className="saved-empty-state">Play one sound once and Sleepfast will keep it here for faster restarts.</p>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="player-footer player-footer-artful player-footer-healing player-footer-single">
@@ -3916,7 +4107,7 @@ const App = () => {
               <span className="eyebrow">Sleepfast premium preview</span>
               <h3>Free helps you settle tonight. Premium is for harder overnight nights.</h3>
               <p>
-                Keep the free player for instant sleep sounds and short timers. Upgrade when you want longer overnight playback, calmer restarts after waking up, and presets built for more specific sleep problems.
+                Keep the free player for instant sleep sounds, favorites, and the first settling window. Upgrade when you want the room to stay steady longer, restart more gently after waking, and guide tougher nights with more targeted presets instead of improvising.
               </p>
             </div>
 
@@ -3925,17 +4116,18 @@ const App = () => {
                 <span className="premium-tier-label">Free tonight</span>
                 <ul>
                   <li>Instant browser sleep sounds</li>
-                  <li>10 to 60 minute timer presets</li>
-                  <li>Quick help for falling asleep faster</li>
+                  <li>Short timers, custom minutes, and quick resets</li>
+                  <li>Saved sounds and recent restart shortcuts</li>
+                  <li>Quick help for falling asleep faster tonight</li>
                 </ul>
               </div>
 
               <div className="premium-tier premium-tier-highlight glass-subpanel">
                 <span className="premium-tier-label">Premium overnight</span>
                 <ul>
-                  <li>Longer playback for all-night rooms</li>
-                  <li>Night waking restart mode for 3 AM wake-ups</li>
-                  <li>More targeted presets for noise, stress, and racing thoughts</li>
+                  <li>Longer overnight playback when a short timer is not enough</li>
+                  <li>Gentler restart modes for 3 AM wake-ups and fragile sleep</li>
+                  <li>More targeted presets for noise, stress, racing thoughts, and travel nights</li>
                 </ul>
               </div>
             </div>
