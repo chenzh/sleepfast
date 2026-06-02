@@ -86,6 +86,8 @@ const App = () => {
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '/'
   const normalizedPath = pathname.replace(/\/+$/, '') || '/'
   const isWhiteNoisePage = normalizedPath === '/white-noise-for-sleep'
+  const isBrownNoisePage = normalizedPath === '/brown-noise-for-sleep'
+  const isNoiseToolPage = isWhiteNoisePage || isBrownNoisePage
   const [selectedSound, setSelectedSound] = useState<SoundId>('rain')
   const [selectedScenario, setSelectedScenario] = useState<string>(scenarios[0].id)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -114,15 +116,25 @@ const App = () => {
       setSelectedScenario('wake-up-3am')
       setTimerMinutes(30)
     }
-  }, [isWhiteNoisePage])
+
+    if (isBrownNoisePage) {
+      setSelectedSound('brown')
+      setSelectedScenario('cant-sleep')
+      setTimerMinutes(45)
+    }
+  }, [isBrownNoisePage, isWhiteNoisePage])
 
   useEffect(() => {
     const title = isWhiteNoisePage
       ? 'White Noise for Sleep — Play Instantly in Your Browser | Sleepfast'
-      : 'Sleepfast — Fall asleep faster tonight'
+      : isBrownNoisePage
+        ? 'Brown Noise for Sleep — Play Instantly in Your Browser | Sleepfast'
+        : 'Sleepfast — Fall asleep faster tonight'
     const description = isWhiteNoisePage
       ? 'Play white noise for sleep instantly in your browser with a simple timer, light-sleeper masking, and a calmer way to restart sleep after waking up at night.'
-      : 'Sleepfast helps you fall asleep faster with calming sleep sounds, a simple timer, and problem-based bedtime tools right in your browser.'
+      : isBrownNoisePage
+        ? 'Play brown noise for sleep instantly in your browser with a deeper low-end layer for racing thoughts, city noise, and harder-to-settle nights.'
+        : 'Sleepfast helps you fall asleep faster with calming sleep sounds, a simple timer, and problem-based bedtime tools right in your browser.'
 
     document.title = title
 
@@ -138,7 +150,7 @@ const App = () => {
     updateMeta('meta[property="og:description"]', description)
     updateMeta('meta[name="twitter:title"]', title)
     updateMeta('meta[name="twitter:description"]', description)
-  }, [isWhiteNoisePage])
+  }, [isBrownNoisePage, isWhiteNoisePage])
 
   const stopPlayback = () => {
     noiseSourceRef.current?.stop?.()
@@ -327,7 +339,85 @@ const App = () => {
     setEmailSubmitted(true)
   }
 
-  if (isWhiteNoisePage) {
+  if (isNoiseToolPage) {
+    const toolTitle = isWhiteNoisePage ? 'White noise for sleep' : 'Brown noise for sleep'
+    const toolHeroTitle = isWhiteNoisePage
+      ? 'Block late-night sounds and drift back faster.'
+      : 'Soften racing thoughts and settle into sleep faster.'
+    const toolTagline = isWhiteNoisePage
+      ? 'white noise for lighter sleepers'
+      : 'brown noise for racing minds'
+    const toolSubtitle = isWhiteNoisePage
+      ? 'Play steady white noise instantly in your browser for light sleep, noisy apartments, and those wakeups where every little sound suddenly feels too sharp.'
+      : 'Play deeper brown noise instantly in your browser for overstimulated nights, city hum, and the kind of mental chatter that keeps your body tired but alert.'
+    const toolBenefits = isWhiteNoisePage
+      ? ['Instant browser playback', 'Better for light sleepers', 'Simple rest timer']
+      : ['Instant browser playback', 'Better for racing thoughts', 'Simple rest timer']
+    const toolQuietLine = isWhiteNoisePage
+      ? 'Best for light sleepers, city apartments, shared walls, and 3 AM wakeups that need a softer reset.'
+      : 'Best for busy minds, low-frequency city noise, and bedtime stretches where silence feels too exposed.'
+    const toolNowPlayingTitle = isWhiteNoisePage ? 'White Noise' : 'Brown Noise'
+    const toolNowPlayingNote = isWhiteNoisePage
+      ? 'A steady broadband layer that helps mask sudden sound changes before they pull you fully awake.'
+      : 'A deeper low-end layer that feels less sharp than white noise when your thoughts need something heavier to lean against.'
+    const toolPlayLabel = isWhiteNoisePage ? 'Play white noise now' : 'Play brown noise now'
+    const toolPauseLabel = isWhiteNoisePage ? 'Pause white noise' : 'Pause brown noise'
+    const toolKeepLabel = isWhiteNoisePage ? 'Keep this running' : 'Keep this grounding layer'
+    const toolWhyTitle = isWhiteNoisePage ? 'Why white noise helps with sleep' : 'Why brown noise helps with sleep'
+    const toolWhyParagraphOne = isWhiteNoisePage
+      ? 'White noise spreads evenly across frequencies, which makes it useful for masking sharp changes like traffic, hallway noise, or a partner moving around beside you.'
+      : 'Brown noise leans heavier into lower frequencies, which can feel smoother and less piercing when your nervous system already feels overloaded at bedtime.'
+    const toolWhyParagraphTwo = isWhiteNoisePage
+      ? 'If your sleep gets interrupted by little sounds more than by racing thoughts, white noise is often the simplest place to start.'
+      : 'If your problem is less about tiny sounds and more about mental static, brown noise is often the calmer place to start.'
+    const toolWhenTitle = isWhiteNoisePage ? 'When to use it' : 'When brown noise usually fits better'
+    const toolWhenItems = isWhiteNoisePage
+      ? [
+          'When you fall asleep lightly and wake easily to background noise.',
+          'When city noise, shared walls, or hallway sounds keep breaking the room open.',
+          'When you wake up at 3 AM and need one steady layer before trying to drift back.',
+        ]
+      : [
+          'When your mind keeps looping even though your body feels tired.',
+          'When higher, sharper sounds feel irritating and you want a deeper texture instead.',
+          'When city hum, HVAC rumble, or internal restlessness make silence feel too loud.',
+        ]
+    const faqItems = isWhiteNoisePage
+      ? [
+          {
+            q: 'Is white noise better than rain sounds?',
+            a: 'Usually for masking sudden background noise, yes. Rain can feel softer emotionally, but white noise is often stronger for consistent sound coverage.',
+          },
+          {
+            q: 'Can I use this after waking up in the middle of the night?',
+            a: 'Yes. This page is built for quick restarts too — press play, set a short timer, and avoid over-adjusting once it feels steady.',
+          },
+          {
+            q: 'What if white noise feels too bright?',
+            a: 'Try brown noise from Sleepfast next. It has more low-end weight and can feel gentler when your mind feels overstimulated instead of just noise-sensitive.',
+          },
+        ]
+      : [
+          {
+            q: 'Is brown noise better than white noise?',
+            a: 'Not always. Brown noise usually feels softer and deeper, while white noise is stronger for masking sharper outside sounds. The better choice depends on whether your problem is mental chatter or external noise.',
+          },
+          {
+            q: 'Can brown noise help with racing thoughts?',
+            a: 'It can help some people because the lower tone feels more grounding and less busy. It will not solve anxiety on its own, but it can make the room feel easier to settle into.',
+          },
+          {
+            q: 'What if I need a cleaner masking sound?',
+            a: 'Switch to Sleepfast white noise when the issue is more about neighbors, traffic, or sudden household sounds than about your own mind staying active.',
+          },
+        ]
+    const ctaTitle = isWhiteNoisePage
+      ? 'Need something gentler than plain white noise?'
+      : 'Need a softer reset than brown noise alone?'
+    const ctaCopy = isWhiteNoisePage
+      ? "Go back to the full Sleepfast experience for rain, ocean, brown noise, and softer bedtime framing built for tonight's specific kind of restless."
+      : "Go back to the full Sleepfast experience for rain, ocean, white noise, and softer bedtime framing built for tonight's specific kind of restless."
+
     return (
       <main className="app-shell tool-shell">
         <section className="tool-hero rain-stage">
@@ -336,7 +426,7 @@ const App = () => {
               <CatMark className="brand-cat" />
               <div className="brand-copy">
                 <span className="brand-name">Sleepfast</span>
-                <span className="brand-tag">white noise for lighter sleepers</span>
+                <span className="brand-tag">{toolTagline}</span>
               </div>
             </a>
           </div>
@@ -351,52 +441,49 @@ const App = () => {
 
           <div className="tool-layout">
             <section className="tool-copy glass-panel">
-              <span className="eyebrow">White noise for sleep</span>
-              <h1>Block late-night sounds and drift back faster.</h1>
+              <span className="eyebrow">{toolTitle}</span>
+              <h1>{toolHeroTitle}</h1>
               <p className="hero-text tool-subtitle">
-                Play steady white noise instantly in your browser for light sleep, noisy apartments,
-                and those wakeups where every little sound suddenly feels too sharp.
+                {toolSubtitle}
               </p>
-              <div className="result-pills" aria-label="White noise sleep benefits">
-                <span>Instant browser playback</span>
-                <span>Better for light sleepers</span>
-                <span>Simple rest timer</span>
+              <div className="result-pills" aria-label={`${toolTitle} benefits`}>
+                {toolBenefits.map((benefit) => (
+                  <span key={benefit}>{benefit}</span>
+                ))}
               </div>
               <div className="cta-row">
                 <button
                   type="button"
                   onClick={async () => {
-                    setSelectedSound('white')
+                    setSelectedSound(isWhiteNoisePage ? 'white' : 'brown')
                     await handleTogglePlayback()
                   }}
                 >
-                  {isPlaying && selectedSound === 'white' ? 'Pause white noise' : 'Play white noise now'}
+                  {isPlaying && selectedSound === (isWhiteNoisePage ? 'white' : 'brown') ? toolPauseLabel : toolPlayLabel}
                 </button>
                 <a className="text-link" href="/">
                   Try the full Sleepfast homepage
                 </a>
               </div>
-              <p className="quiet-line tool-quiet-line">
-                Best for light sleepers, city apartments, shared walls, and 3 AM wakeups that need a softer reset.
-              </p>
+              <p className="quiet-line tool-quiet-line">{toolQuietLine}</p>
             </section>
 
             <aside className="player-card player-card-healing glass-panel tool-player-card">
               <div className="now-playing now-playing-minimal">
                 <span className="player-kicker">Now playing</span>
-                <h2>White Noise</h2>
-                <p className="comfort-note">A steady broadband layer that helps mask sudden sound changes before they pull you fully awake.</p>
+                <h2>{toolNowPlayingTitle}</h2>
+                <p className="comfort-note">{toolNowPlayingNote}</p>
               </div>
 
               <div className="player-footer player-footer-artful player-footer-healing player-footer-single">
                 <button
                   type="button"
                   onClick={async () => {
-                    setSelectedSound('white')
+                    setSelectedSound(isWhiteNoisePage ? 'white' : 'brown')
                     await handleTogglePlayback()
                   }}
                 >
-                  {isPlaying && selectedSound === 'white' ? 'Pause the layer' : 'Keep this running'}
+                  {toolKeepLabel}
                 </button>
               </div>
 
@@ -434,51 +521,37 @@ const App = () => {
 
         <section className="tool-sections">
           <section className="tool-section glass-panel">
-            <h2>Why white noise helps with sleep</h2>
-            <p>
-              White noise spreads evenly across frequencies, which makes it useful for masking sharp changes like traffic,
-              hallway noise, or a partner moving around beside you.
-            </p>
-            <p>
-              If your sleep gets interrupted by little sounds more than by racing thoughts, white noise is often the simplest
-              place to start.
-            </p>
+            <h2>{toolWhyTitle}</h2>
+            <p>{toolWhyParagraphOne}</p>
+            <p>{toolWhyParagraphTwo}</p>
           </section>
 
           <section className="tool-section glass-panel">
-            <h2>When to use it</h2>
+            <h2>{toolWhenTitle}</h2>
             <ul className="tool-list">
-              <li>When you fall asleep lightly and wake easily to background noise.</li>
-              <li>When city noise, shared walls, or hallway sounds keep breaking the room open.</li>
-              <li>When you wake up at 3 AM and need one steady layer before trying to drift back.</li>
+              {toolWhenItems.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </section>
 
           <section className="tool-section glass-panel">
             <h2>FAQ</h2>
             <div className="faq-list">
-              <div>
-                <h3>Is white noise better than rain sounds?</h3>
-                <p>Usually for masking sudden background noise, yes. Rain can feel softer emotionally, but white noise is often stronger for consistent sound coverage.</p>
-              </div>
-              <div>
-                <h3>Can I use this after waking up in the middle of the night?</h3>
-                <p>Yes. This page is built for quick restarts too — press play, set a short timer, and avoid over-adjusting once it feels steady.</p>
-              </div>
-              <div>
-                <h3>What if white noise feels too bright?</h3>
-                <p>Try brown noise from Sleepfast next. It has more low-end weight and can feel gentler when your mind feels overstimulated instead of just noise-sensitive.</p>
-              </div>
+              {faqItems.map((item) => (
+                <div key={item.q}>
+                  <h3>{item.q}</h3>
+                  <p>{item.a}</p>
+                </div>
+              ))}
             </div>
           </section>
 
           <section className="conversion-story glass-panel tool-cta-panel">
             <div className="conversion-intro">
               <span className="eyebrow">Keep going with Sleepfast</span>
-              <h2>Need something gentler than plain white noise?</h2>
-              <p>
-                Go back to the full Sleepfast experience for rain, ocean, brown noise, and softer bedtime framing built for tonight's specific kind of restless.
-              </p>
+              <h2>{ctaTitle}</h2>
+              <p>{ctaCopy}</p>
             </div>
             <div className="tool-cta-actions">
               <a className="link-button" href="/">
