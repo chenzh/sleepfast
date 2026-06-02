@@ -25,6 +25,13 @@ type Scenario = {
   benefit: string
 }
 
+type ToolLink = {
+  href: string
+  kicker: string
+  title: string
+  description: string
+}
+
 const soundOptions: SoundOption[] = [
   {
     id: 'rain',
@@ -73,6 +80,44 @@ const timerOptions: TimerOption[] = [10, 20, 30, 45]
 const TIMER_SCALE_MS = 1000
 const FALL_ASLEEP_BUFFER_MINUTES = 15
 const SLEEP_CYCLE_MINUTES = 90
+const toolLinks: ToolLink[] = [
+  {
+    href: '/white-noise-for-sleep',
+    kicker: 'For lighter sleepers',
+    title: 'White noise for sleep',
+    description: 'Mask house noise, neighbors, and sudden wake-up triggers with a steadier layer.',
+  },
+  {
+    href: '/brown-noise-for-sleep',
+    kicker: 'For mental chatter',
+    title: 'Brown noise for sleep',
+    description: 'Use a deeper sound layer when silence makes thoughts or city hum feel louder.',
+  },
+  {
+    href: '/sleep-calculator',
+    kicker: 'For bedtime timing',
+    title: 'Sleep calculator',
+    description: 'Pick a wake-up time and get realistic bedtime targets built around sleep cycles.',
+  },
+  {
+    href: '/fall-asleep-fast',
+    kicker: 'For tonight’s reset',
+    title: 'Fall asleep fast',
+    description: 'Open a simpler browser-first reset when you feel tired but sleep still will not start.',
+  },
+  {
+    href: '/wake-up-at-3am',
+    kicker: 'For 3AM wake-ups',
+    title: 'Wake up at 3AM',
+    description: 'Restart sleep faster with a short white-noise reset built for middle-of-the-night waking.',
+  },
+  {
+    href: '/mind-racing-at-night',
+    kicker: 'For racing thoughts',
+    title: 'Mind racing at night',
+    description: 'Ground overstimulated bedtimes with a calmer brown-noise routine and fewer inputs.',
+  },
+]
 
 const formatTimerLabel = (timeLeftMs: number | null, timerMinutes: TimerOption) => {
   if (timeLeftMs !== null) {
@@ -157,6 +202,10 @@ const App = () => {
     [selectedSound],
   )
   const sleepCycles = useMemo(() => buildSleepCycles(timeInputToMinutes(wakeTime)), [wakeTime])
+  const relatedToolLinks = useMemo(
+    () => toolLinks.filter((tool) => tool.href !== normalizedPath).slice(0, 3),
+    [normalizedPath],
+  )
 
   useEffect(() => {
     if (isWhiteNoisePage || isWakeUpAt3amPage) {
@@ -611,6 +660,19 @@ const App = () => {
             </div>
           </section>
 
+          <section className="tool-section glass-panel related-tools-panel">
+            <h2>More Sleepfast tools for tonight</h2>
+            <div className="related-tools-grid">
+              {relatedToolLinks.map((tool) => (
+                <a key={tool.href} className="related-tool-link glass-subpanel" href={tool.href}>
+                  <span className="related-tool-kicker">{tool.kicker}</span>
+                  <strong>{tool.title}</strong>
+                  <p>{tool.description}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+
           <section className="conversion-story glass-panel tool-cta-panel">
             <div className="conversion-intro">
               <span className="eyebrow">Keep going with Sleepfast</span>
@@ -753,6 +815,19 @@ const App = () => {
                 <h3>What should I do after picking a bedtime?</h3>
                 <p>Keep the room dark, stop adjusting everything, and start one steady sleep sound so your body has fewer reasons to stay alert.</p>
               </div>
+            </div>
+          </section>
+
+          <section className="tool-section glass-panel related-tools-panel">
+            <h2>More Sleepfast tools for tonight</h2>
+            <div className="related-tools-grid">
+              {relatedToolLinks.map((tool) => (
+                <a key={tool.href} className="related-tool-link glass-subpanel" href={tool.href}>
+                  <span className="related-tool-kicker">{tool.kicker}</span>
+                  <strong>{tool.title}</strong>
+                  <p>{tool.description}</p>
+                </a>
+              ))}
             </div>
           </section>
 
@@ -944,6 +1019,19 @@ const App = () => {
                 <h3>How long should I leave sleep sounds on?</h3>
                 <p>Start with 20 to 30 minutes if you mainly need help crossing into sleep. Use longer only if the room or your wake-ups keep pulling you alert again.</p>
               </div>
+            </div>
+          </section>
+
+          <section className="tool-section glass-panel related-tools-panel">
+            <h2>More Sleepfast tools for tonight</h2>
+            <div className="related-tools-grid">
+              {relatedToolLinks.map((tool) => (
+                <a key={tool.href} className="related-tool-link glass-subpanel" href={tool.href}>
+                  <span className="related-tool-kicker">{tool.kicker}</span>
+                  <strong>{tool.title}</strong>
+                  <p>{tool.description}</p>
+                </a>
+              ))}
             </div>
           </section>
 
@@ -1148,6 +1236,19 @@ const App = () => {
                 <h3>How long should the restart timer be?</h3>
                 <p>Start with 10 minutes for a brief wake-up. Go longer only if you know your room stays noisy or your body takes more time to settle back down.</p>
               </div>
+            </div>
+          </section>
+
+          <section className="tool-section glass-panel related-tools-panel">
+            <h2>More Sleepfast tools for tonight</h2>
+            <div className="related-tools-grid">
+              {relatedToolLinks.map((tool) => (
+                <a key={tool.href} className="related-tool-link glass-subpanel" href={tool.href}>
+                  <span className="related-tool-kicker">{tool.kicker}</span>
+                  <strong>{tool.title}</strong>
+                  <p>{tool.description}</p>
+                </a>
+              ))}
             </div>
           </section>
 
@@ -1361,6 +1462,19 @@ const App = () => {
                 <h3>How long should I leave brown noise on?</h3>
                 <p>Start with 30 to 45 minutes if your thoughts keep looping at bedtime. Go shorter when you mainly need help crossing the first few minutes into sleep.</p>
               </div>
+            </div>
+          </section>
+
+          <section className="tool-section glass-panel related-tools-panel">
+            <h2>More Sleepfast tools for tonight</h2>
+            <div className="related-tools-grid">
+              {relatedToolLinks.map((tool) => (
+                <a key={tool.href} className="related-tool-link glass-subpanel" href={tool.href}>
+                  <span className="related-tool-kicker">{tool.kicker}</span>
+                  <strong>{tool.title}</strong>
+                  <p>{tool.description}</p>
+                </a>
+              ))}
             </div>
           </section>
 
