@@ -1542,6 +1542,51 @@ const App = () => {
         </div>
       </section>
 
+      <section className="tool-directory" aria-label="Sleepfast sleep tools">
+        <div className="tool-directory-panel glass-panel">
+          <div className="tool-directory-copy">
+            <span className="eyebrow">Sleep tools for specific nights</span>
+            <h2>Start with the exact sleep problem you want to solve tonight.</h2>
+            <p>
+              Sleepfast is not just one pretty sound page. Use the tool that fits your night best, then come back to the full player when you want a softer all-around bedtime room.
+            </p>
+          </div>
+
+          <div className="tool-directory-grid">
+            <a className="tool-directory-card glass-subpanel" href="/white-noise-for-sleep">
+              <span className="tool-directory-kicker">For light sleepers</span>
+              <strong>White noise for sleep</strong>
+              <p>Start instant masking for house noise, neighbors, and middle-of-the-night wake-ups.</p>
+            </a>
+            <a className="tool-directory-card glass-subpanel" href="/brown-noise-for-sleep">
+              <span className="tool-directory-kicker">For mental chatter</span>
+              <strong>Brown noise for sleep</strong>
+              <p>Use a deeper sound layer when silence makes your thoughts or city noise feel louder.</p>
+            </a>
+            <a className="tool-directory-card glass-subpanel" href="/sleep-calculator">
+              <span className="tool-directory-kicker">For bedtime timing</span>
+              <strong>Sleep calculator</strong>
+              <p>Find a realistic bedtime based on sleep cycles, then start sleep sounds right away.</p>
+            </a>
+            <a className="tool-directory-card glass-subpanel" href="/fall-asleep-fast">
+              <span className="tool-directory-kicker">For tonight's reset</span>
+              <strong>Fall asleep fast</strong>
+              <p>Use a simpler browser-first reset when you feel tired but sleep still will not start.</p>
+            </a>
+            <a className="tool-directory-card glass-subpanel" href="/wake-up-at-3am">
+              <span className="tool-directory-kicker">For night wake-ups</span>
+              <strong>Wake up at 3AM</strong>
+              <p>Restart sleep faster with a short white-noise reset instead of fully waking yourself up.</p>
+            </a>
+            <a className="tool-directory-card glass-subpanel" href="/mind-racing-at-night">
+              <span className="tool-directory-kicker">For racing thoughts</span>
+              <strong>Mind racing at night</strong>
+              <p>Ground bedtime overthinking with deeper brown noise and a calmer, lower-input routine.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="conversion-strip conversion-strip-story" aria-label="Sleepfast email and premium signup">
         <div className="conversion-story glass-panel">
           <div className="conversion-intro">
