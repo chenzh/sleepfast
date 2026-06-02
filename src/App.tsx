@@ -131,6 +131,7 @@ const App = () => {
   const isWhiteNoisePage = normalizedPath === '/white-noise-for-sleep'
   const isBrownNoisePage = normalizedPath === '/brown-noise-for-sleep'
   const isSleepCalculatorPage = normalizedPath === '/sleep-calculator'
+  const isFallAsleepFastPage = normalizedPath === '/fall-asleep-fast'
   const isNoiseToolPage = isWhiteNoisePage || isBrownNoisePage
   const [wakeTime, setWakeTime] = useState(() => {
     if (typeof window === 'undefined') return '07:00'
@@ -184,14 +185,18 @@ const App = () => {
         ? 'Brown Noise for Sleep — Play Instantly in Your Browser | Sleepfast'
         : isSleepCalculatorPage
           ? 'Sleep Calculator — Best Bedtime and Wake Time Tool | Sleepfast'
-          : 'Sleepfast — Fall asleep faster tonight'
+          : isFallAsleepFastPage
+            ? 'Fall Asleep Fast — Sleep Sounds and Bedtime Reset | Sleepfast'
+            : 'Sleepfast — Fall asleep faster tonight'
     const description = isWhiteNoisePage
       ? 'Play white noise for sleep instantly in your browser with a simple timer, light-sleeper masking, and a calmer way to restart sleep after waking up at night.'
       : isBrownNoisePage
         ? 'Play brown noise for sleep instantly in your browser with a deeper low-end layer for racing thoughts, city noise, and harder-to-settle nights.'
         : isSleepCalculatorPage
           ? 'Use the Sleepfast sleep calculator to find better bedtimes based on 90-minute sleep cycles, then start sleep sounds right away in your browser.'
-          : 'Sleepfast helps you fall asleep faster with calming sleep sounds, a simple timer, and problem-based bedtime tools right in your browser.'
+          : isFallAsleepFastPage
+            ? 'Fall asleep fast with instant browser sleep sounds, a simple bedtime reset, and calmer steps for racing thoughts or noisy nights.'
+            : 'Sleepfast helps you fall asleep faster with calming sleep sounds, a simple timer, and problem-based bedtime tools right in your browser.'
 
     document.title = title
 
@@ -207,7 +212,7 @@ const App = () => {
     updateMeta('meta[property="og:description"]', description)
     updateMeta('meta[name="twitter:title"]', title)
     updateMeta('meta[name="twitter:description"]', description)
-  }, [isBrownNoisePage, isSleepCalculatorPage, isWhiteNoisePage])
+  }, [isBrownNoisePage, isFallAsleepFastPage, isSleepCalculatorPage, isWhiteNoisePage])
 
   const stopPlayback = () => {
     noiseSourceRef.current?.stop?.()
@@ -763,6 +768,197 @@ const App = () => {
               </a>
               <a className="text-link" href="/white-noise-for-sleep">
                 Or try white noise for sleep
+              </a>
+            </div>
+          </section>
+        </section>
+      </main>
+    )
+  }
+
+  if (isFallAsleepFastPage) {
+    return (
+      <main className="app-shell tool-shell">
+        <section className="tool-hero rain-stage">
+          <div className="top-brandbar">
+            <a className="brand-lockup" aria-label="Sleepfast home" href="/">
+              <CatMark className="brand-cat" />
+              <div className="brand-copy">
+                <span className="brand-name">Sleepfast</span>
+                <span className="brand-tag">fall asleep fast</span>
+              </div>
+            </a>
+          </div>
+
+          <div className="rain-backdrop tool-backdrop" aria-hidden="true">
+            <div className="night-vignette" />
+            <div className="mist mist-left" />
+            <div className="mist mist-right" />
+            <div className="city-glow" />
+            <div className="window-sheen" />
+          </div>
+
+          <div className="tool-layout">
+            <section className="tool-copy glass-panel">
+              <span className="eyebrow">Fall asleep fast</span>
+              <h1>Fall asleep faster without opening another app.</h1>
+              <p className="hero-text tool-subtitle">
+                Start a sleep sound instantly, pick the kind of restless night you are having, and use a simpler bedtime reset built for tonight instead of a full sleep program.
+              </p>
+              <div className="result-pills" aria-label="Fall asleep fast benefits">
+                <span>Instant browser sleep sounds</span>
+                <span>Made for tonight's restless window</span>
+                <span>Simple 10 to 45 minute timer</span>
+              </div>
+              <div className="cta-row">
+                <button type="button" onClick={() => void handleTogglePlayback()}>
+                  {isPlaying ? 'Pause the sleep sound' : 'Start falling asleep faster'}
+                </button>
+                <a className="text-link" href="#fall-asleep-fast-tool">
+                  Jump to the bedtime reset
+                </a>
+              </div>
+              <p className="quiet-line tool-quiet-line">
+                Best when your body feels tired but your room, your mind, or your momentum still will not let sleep start cleanly.
+              </p>
+            </section>
+
+            <aside className="player-card player-card-healing glass-panel tool-player-card" id="fall-asleep-fast-tool">
+              <div className="now-playing now-playing-minimal">
+                <span className="player-kicker">Tonight's faster reset</span>
+                <h2>{currentSound.name}</h2>
+                <p className="comfort-note">
+                  Pick one steady layer, stop switching, and give your nervous system fewer new signals to react to while you are trying to drift off.
+                </p>
+              </div>
+
+              <div className="sleep-reset-list">
+                {scenarios.map((scenario) => (
+                  <button
+                    key={scenario.id}
+                    type="button"
+                    className={`sleep-reset-item glass-subpanel ${scenario.id === selectedScenario ? 'active' : ''}`}
+                    onClick={() => void applyScenario(scenario)}
+                  >
+                    <div>
+                      <span className="sleep-cycle-kicker">{scenario.name}</span>
+                      <strong>
+                        {soundOptions.find((option) => option.id === scenario.soundId)?.name} · {scenario.timer} min
+                      </strong>
+                    </div>
+                    <p>{scenario.benefit}</p>
+                  </button>
+                ))}
+              </div>
+
+              <div className="control-drawer glass-subpanel control-drawer-healing control-drawer-open">
+                <div className="sound-grid sound-grid-minimal">
+                  {soundOptions.map((option) => (
+                    <button
+                      key={option.id}
+                      type="button"
+                      className={`sound-button ${option.id === selectedSound ? 'active' : ''}`}
+                      onClick={async () => {
+                        setSelectedSound(option.id)
+                        if (isPlaying) {
+                          await startSound(option.id)
+                        }
+                      }}
+                    >
+                      <strong>{option.name}</strong>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="player-controls">
+                  <div className="timer-block timer-block-minimal">
+                    <div className="timer-label-row timer-label-row-minimal">
+                      <strong>Rest timer</strong>
+                      <span>{formatTimerLabel(timeLeftMs, timerMinutes)}</span>
+                    </div>
+                    <div className="timer-row">
+                      {timerOptions.map((option) => (
+                        <button
+                          key={option}
+                          type="button"
+                          className={option === timerMinutes ? 'active' : ''}
+                          onClick={() => {
+                            setTimerMinutes(option)
+                            if (isPlaying) {
+                              timerDeadlineRef.current = Date.now() + option * TIMER_SCALE_MS
+                              setTimeLeftMs(option * TIMER_SCALE_MS)
+                            }
+                          }}
+                        >
+                          {option} min
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="player-footer player-footer-artful player-footer-healing player-footer-single">
+                <button type="button" onClick={() => void handleTogglePlayback()}>
+                  {isPlaying ? 'Keep this room steady' : 'Use this sleep sound now'}
+                </button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section className="tool-sections">
+          <section className="tool-section glass-panel">
+            <h2>How to fall asleep fast tonight</h2>
+            <p>
+              The fastest reset is usually not adding more stimulation. It is reducing decisions, picking one consistent sound, and giving your brain a single background layer instead of silence plus interruptions.
+            </p>
+            <p>
+              Sleepfast is built for that specific moment: when you are already tired, but a noisy room, racing thoughts, or a broken bedtime rhythm keeps the last step into sleep from happening.
+            </p>
+          </section>
+
+          <section className="tool-section glass-panel">
+            <h2>A simple bedtime reset</h2>
+            <ul className="tool-list">
+              <li>Choose the restless-night preset that feels closest to what is happening right now.</li>
+              <li>Start one sound and set a short timer so the room feels held without becoming another thing to manage.</li>
+              <li>Keep lights low, stop changing tracks, and let your body settle around the same steady layer.</li>
+            </ul>
+          </section>
+
+          <section className="tool-section glass-panel">
+            <h2>FAQ</h2>
+            <div className="faq-list">
+              <div>
+                <h3>What is the best sound to fall asleep fast?</h3>
+                <p>There is no single best sound for everyone. Rain often feels easiest to start with, white noise helps more with outside sounds, and brown noise can feel better when your own thoughts are the loudest thing in the room.</p>
+              </div>
+              <div>
+                <h3>Can this help if I cannot turn my mind off?</h3>
+                <p>It can help by giving your attention one steady place to land. It will not solve stress on its own, but it can lower the number of little things your brain keeps tracking.</p>
+              </div>
+              <div>
+                <h3>How long should I leave sleep sounds on?</h3>
+                <p>Start with 20 to 30 minutes if you mainly need help crossing into sleep. Use longer only if the room or your wake-ups keep pulling you alert again.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="conversion-story glass-panel tool-cta-panel">
+            <div className="conversion-intro">
+              <span className="eyebrow">Keep going with Sleepfast</span>
+              <h2>Need a softer room after tonight too?</h2>
+              <p>
+                Go back to the full Sleepfast player for rain, ocean, brown noise, white noise, and a calmer homepage experience built around falling asleep faster and restarting sleep after night wake-ups.
+              </p>
+            </div>
+            <div className="tool-cta-actions">
+              <a className="link-button" href="/">
+                Open the full Sleepfast player
+              </a>
+              <a className="text-link" href="/sleep-calculator">
+                Or use the sleep calculator
               </a>
             </div>
           </section>

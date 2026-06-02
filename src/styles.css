@@ -1028,12 +1028,14 @@ button {
 }
 
 .sleep-calculator-input p,
-.sleep-cycle-item p {
+.sleep-cycle-item p,
+.sleep-reset-item p {
   margin: 0;
   color: rgba(236, 229, 221, 0.74);
 }
 
-.sleep-cycle-list {
+.sleep-cycle-list,
+.sleep-reset-list {
   display: grid;
   gap: 12px;
 }
@@ -1043,6 +1045,15 @@ button {
   gap: 8px;
 }
 
+.sleep-reset-item {
+  display: grid;
+  gap: 10px;
+  text-align: left;
+  border: 1px solid rgba(188, 213, 255, 0.08);
+  background: rgba(255, 255, 255, 0.028);
+  color: #eef4ff;
+}
+
 .sleep-cycle-item > div {
   display: flex;
   align-items: baseline;
@@ -1050,12 +1061,22 @@ button {
   gap: 12px;
 }
 
+.sleep-reset-item > div {
+  display: grid;
+  gap: 6px;
+}
+
 .sleep-cycle-item strong {
   font-size: 1.5rem;
   color: #fbf4ee;
 }
 
-.sleep-cycle-item.recommended {
+.sleep-reset-item strong {
+  font-size: 1rem;
+}
+
+.sleep-cycle-item.recommended,
+.sleep-reset-item.active {
   border-color: rgba(151, 188, 255, 0.2);
   background: linear-gradient(180deg, rgba(35, 43, 67, 0.4), rgba(19, 24, 38, 0.54));
 }
