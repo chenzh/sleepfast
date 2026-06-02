@@ -1656,6 +1656,39 @@ const App = () => {
         </div>
       </section>
 
+      <section className="result-strip" aria-label="Sleepfast results">
+        <div className="result-strip-panel glass-panel">
+          <div className="result-strip-copy">
+            <span className="eyebrow">What Sleepfast helps you do tonight</span>
+            <h2>Use the browser-first tool that matches the way sleep is getting stuck.</h2>
+            <p>
+              Start here when you need more than a pretty sound page: faster sleep starts, calmer
+              3AM restarts, and simpler support for nights when your mind will not slow down.
+            </p>
+          </div>
+
+          <div className="result-strip-grid">
+            <a className="result-strip-card glass-subpanel" href="/fall-asleep-fast">
+              <span className="result-strip-kicker">Fall asleep faster</span>
+              <strong>Start a lower-friction bedtime reset.</strong>
+              <p>Use one simple sound-and-timer flow when you feel tired but sleep still will not begin.</p>
+            </a>
+
+            <a className="result-strip-card glass-subpanel" href="/wake-up-at-3am">
+              <span className="result-strip-kicker">Restart sleep after waking</span>
+              <strong>Get back down without turning on a full awake mode.</strong>
+              <p>Open a short white-noise reset built for the middle of the night instead of more stimulation.</p>
+            </a>
+
+            <a className="result-strip-card glass-subpanel" href="/mind-racing-at-night">
+              <span className="result-strip-kicker">Calm racing thoughts</span>
+              <strong>Ground mental noise before it drags bedtime longer.</strong>
+              <p>Switch to a deeper brown-noise layer when silence makes looping thoughts feel louder.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="tool-directory" aria-label="Sleepfast sleep tools">
         <div className="tool-directory-panel glass-panel">
           <div className="tool-directory-copy">
