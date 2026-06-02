@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && mkdir -p dist/white-noise-for-sleep dist/brown-noise-for-sleep dist/sleep-calculator dist/fall-asleep-fast dist/wake-up-at-3am dist/mind-racing-at-night && cp dist/index.html dist/white-noise-for-sleep/index.html && cp dist/index.html dist/brown-noise-for-sleep/index.html && cp dist/index.html dist/sleep-calculator/index.html && cp dist/index.html dist/fall-asleep-fast/index.html && cp dist/index.html dist/wake-up-at-3am/index.html && cp dist/index.html dist/mind-racing-at-night/index.html",
+    "build": "tsc -b && vite build && mkdir -p dist/white-noise-for-sleep dist/brown-noise-for-sleep dist/rain-sounds-for-sleep dist/ocean-sounds-for-sleep dist/sleep-calculator dist/nap-calculator dist/sleep-breathing-exercise dist/fall-asleep-fast dist/wake-up-at-3am dist/mind-racing-at-night dist/sleep-better-tonight && cp dist/index.html dist/white-noise-for-sleep/index.html && cp dist/index.html dist/brown-noise-for-sleep/index.html && cp dist/index.html dist/rain-sounds-for-sleep/index.html && cp dist/index.html dist/ocean-sounds-for-sleep/index.html && cp dist/index.html dist/sleep-calculator/index.html && cp dist/index.html dist/nap-calculator/index.html && cp dist/index.html dist/sleep-breathing-exercise/index.html && cp dist/index.html dist/fall-asleep-fast/index.html && cp dist/index.html dist/wake-up-at-3am/index.html && cp dist/index.html dist/mind-racing-at-night/index.html && cp dist/index.html dist/sleep-better-tonight/index.html",
     "preview": "vite preview"
   },
   "dependencies": {

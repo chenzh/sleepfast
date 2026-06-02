@@ -44,6 +44,7 @@
 - 用户意图：想知道小睡多久更合适
 - 工具：根据当前时间推荐 20/30/90 分钟 nap 结束时间
 - CTA：Use Sleepfast nap sound preset
+- 当前状态：已上线首版页面方案，首屏可直接输入 nap 开始时间并获得 20 / 30 / 90 分钟 wake-up 时间，同时桥接 `/sleep-breathing-exercise` 与 `/rain-sounds-for-sleep`，先收口 daytime recovery 到核心播放器的最小闭环
 
 #### 3. `/jet-lag-calculator`
 - 主关键词：jet lag calculator
@@ -54,8 +55,9 @@
 #### 4. `/sleep-breathing-exercise`
 - 主关键词：sleep breathing exercise
 - 用户意图：需要快速放松方法
-- 工具：4-7-8 或 box breathing 的交互节奏器
-- CTA：Play a matching sleep sound
+- 工具：4-7-8 的交互节奏器（已上线首版）
+- CTA：Play a matching sleep sound / Open the bedtime reset
+- 当前状态：已补上呼吸后的一键承接卡片，可直接从节奏器进入 Rain on Window 20 分钟、Brown Noise 30 分钟、White Noise 10 分钟或 Ocean Waves 45 分钟场景，减少“做完呼吸还要回首页重选”的断点；播放器侧现已支持 1-180 分钟自定义 timer，方便把呼吸后跟播时长拉到更贴近用户当晚状态的长度
 
 ---
 
@@ -66,21 +68,25 @@
 - 主关键词：white noise for sleep
 - 工具：直接播放白噪音
 - 附加：解释适合轻睡眠/背景噪音环境
+- 当前状态：已补上收藏与最近播放入口，可直接从工具页保存常用声音并一键重播
 
 #### 6. `/brown-noise-for-sleep`
 - 主关键词：brown noise for sleep
 - 工具：直接播放棕噪音
 - 附加：解释适合思绪吵、城市噪音环境
+- 当前状态：已补上收藏与最近播放入口，可直接从工具页保存常用声音并一键重播
 
 #### 7. `/rain-sounds-for-sleep`
 - 主关键词：rain sounds for sleeping
 - 工具：直接播放雨声
 - 附加：解释适合 wind-down
+- 当前状态：已上线并完成 production 核验，正式域名可直接播放 Rain on Window，带 10-60 分钟 timer、收藏与最近播放入口
 
 #### 8. `/ocean-sounds-for-sleep`
 - 主关键词：ocean sounds for sleep
 - 工具：直接播放海浪声
 - 附加：解释适合深呼吸、长时放松
+- 当前状态：已上线并完成 production 核验，正式域名可直接播放 Ocean Waves，带 10-60 分钟 timer、收藏与最近播放入口
 
 ---
 
@@ -94,14 +100,17 @@
 #### 10. `/mind-racing-at-night`
 - 主关键词：mind racing at night
 - 页面结构：问题解释 + 棕噪音/呼吸练习 + FAQ
+- 当前状态：已在首屏播放器下补上通往 `/sleep-breathing-exercise` 的桥接入口，先把“思绪停不下 → 先呼吸放松 → 再进棕噪音”路径收口
 
 #### 11. `/wake-up-at-3am`
 - 主关键词：wake up at 3am can’t fall back asleep
 - 页面结构：夜醒场景建议 + 白噪音/短时计时器
+- 当前状态：已在首屏播放器下补上通往 `/sleep-breathing-exercise` 的桥接入口，先把“夜醒过于清醒 → 先呼吸缓下来 → 再进白噪音/雨声”路径收口
 
 #### 12. `/sleep-better-tonight`
 - 主关键词：sleep better tonight
 - 页面结构：更偏总入口，承接宽泛搜索
+- 当前状态：已上线并完成 production 核验，正式域名首屏可直接进入 Rain / Brown / Ocean 三种今晚重置预设，并桥接到 `/sleep-breathing-exercise` 与 `/sleep-calculator`，先把宽泛问题词流量接入核心播放体验
 
 ---
 

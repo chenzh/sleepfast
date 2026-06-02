@@ -135,8 +135,8 @@ Sleepfast 当前最该服务的人群是：
 - 更贴近具体问题
 - 更适合引导 premium 与 email 留资
 
-### 第三优先级：扩展工具能力
-- nap-calculator
+### 第三优先级：补扩展工具
+- nap-calculator（已上线首版）
 - jet-lag-calculator
 - sleep-breathing-exercise
 
@@ -189,6 +189,12 @@ Sleepfast 当前最该服务的人群是：
 - 增加 FAQ
 - 增加首页回流 CTA
 
+### D+. 播放体验收口任务池
+- 定时结束淡出而非硬停
+- 主声音切换时减少突兀中断
+- 冥想/夜醒场景预设更贴合对应 timer
+- 最近播放 / 收藏入口补最小可用闭环
+
 ### C. 站点结构任务池
 - 加页面间内链
 - 加元信息 / 标题 / 描述
@@ -238,3 +244,29 @@ Sleepfast 现在不缺继续雕首页的审美能力，缺的是把首页变成�
 ## 10. 最新推进记录
 - 2026-06-02：首页首屏动态背景改为随当前声音切换场景，不再固定海浪。Rain on Window 进入雨夜窗景，Ocean Waves 保持海面，Brown / White Noise 切到更克制的深空层，首屏视听绑定更接近 PRD 的“场景化唯美动态视频背景系统”。
 - 验证结果：已完成 `npm run build`，并通过 Cloudflare Pages 部署到 `https://master.sleepfast.pages.dev`。浏览器快照已确认首屏默认文案与当前声音为 `Rain on Window`，用于收口首页“声音-视觉”一致性。
+- 2026-06-02：补上首页播放器的组合音效最小闭环。当前主声音支持再叠加最多 2 路辅助声音，并给每一层独立音量滑杆，满足 PRD 对“2-3 路叠加 + 独立音量”的最低要求。
+- 验证结果：已完成 `npm run build`，并通过 Cloudflare Pages 部署到 `https://master.sleepfast.pages.dev`（部署别名）和 `https://1222b691.sleepfast.pages.dev`（本次部署 URL）。产物内已确认 `Sound blend` / `mix-panel` / layer volume 控件已进入线上 bundle。
+- 2026-06-02：补齐 PRD 定时关闭中的 60 分钟预设。首页与工具页计时器从 10 / 20 / 30 / 45 扩展为 10 / 20 / 30 / 45 / 60，先收口“更长单次播放”这一最低体验闭环。
+- 验证结果：已完成 `npm run build`；产物内确认 `60 min` 文案与 `10 to 60 minute timer presets` 已进入 bundle，待本次 Cloudflare Pages 部署后再核验正式域名生效。
+- 2026-06-02：补上定时结束时的平滑淡出。播放器计时归零时不再直接硬停，而是对 master gain 做约 1.8 秒淡出，再停止音频节点，先收口定时关闭体验里的“结束更柔和”闭环。
+- 验证结果：已完成 `npm run build`；产物内确认 `fadeOutAndStopPlayback` 与 `linearRampToValueAtTime` 已进入 bundle，待本次 Cloudflare Pages 部署后核验线上计时结束体验。
+- 2026-06-03：首页补上收藏 / 最近播放最小闭环。当前主播放器支持把当前声音保存到本地收藏，并自动记录最近播放，用户再次进入站点后可一键重播常用声音，补齐 PRD 对“收藏 + 最近播放”的最低可用要求。
+- 验证结果：已完成 `npm run build` 并通过 Cloudflare Pages 部署到 `https://master.sleepfast.pages.dev` 与 `https://aa3ea2f8.sleepfast.pages.dev`。浏览器快照已确认 preview 别名出现 `Save this sound`，当前 `sleepfast.pages.dev` 仍停在上一生产版本，尚未显示该入口，需继续观察正式域名切换。
+- 2026-06-03：为首页与主要工具页播放器补上 1-180 分钟自定义 timer 输入，不再只限于 10 / 20 / 30 / 45 / 60 分钟预设。当前用户可直接输入更短 nap 时长或更长 overnight / travel recovery 时长，并继续复用原有平滑淡出逻辑，先把 PRD 里的“自定义时间”最低闭环补齐。
+- 验证结果：待本次 `npm run build`、Cloudflare Pages 生产部署与正式域名核验，确认各主要播放页出现 `Custom minutes` 输入与 `Use custom` CTA。
+- 2026-06-03：新增 `/nap-calculator` 工具页，直接承接高意图 nap calculator 搜索，并把 20 / 30 / 90 分钟 nap 结束时间与呼吸重置 / 雨声回流 CTA 收到同一页，先补齐 SEO 规划里的 daytime recovery 入口。
+- 验证结果：待本次 `npm run build`、Cloudflare Pages 生产部署与正式域名核验，确认正式域名出现 `Use the nap calculator`、`Wake up at ...` 与回流 CTA。
+- 2026-06-03：把 `/sleep-breathing-exercise` 从“只有节奏器”补成“呼吸后直接进声音”的更短闭环。当前呼吸页新增两个一键承接卡片：`Rain on Window · 20 min` 和 `Brown Noise · 30 min`，用户做完 2-4 个呼吸周期后可直接进入对应声音场景，不必再跳回首页重新选。
+- 2026-06-03：继续补强 `/sleep-breathing-exercise` 的呼吸后场景分流，在原有 Rain / Brown 之外新增 `White Noise · 10 min` 与 `Ocean Waves · 45 min` 承接卡片，先收口“呼吸放松后直接进入夜醒重启 / 更长漂浮场景”的最小闭环。
+- 验证结果：待本次 `npm run build` 与 Cloudflare Pages 生产部署后，通过正式域名核验 `/sleep-breathing-exercise` 已出现 4 张 follow-up 场景卡片。 
+- 验证结果：已完成 `npm run build`，并通过 Cloudflare Pages 生产部署到 `https://sleepfast.pages.dev/sleep-breathing-exercise`（本次部署 URL `https://04a9b936.sleepfast.pages.dev`）。浏览器快照已确认呼吸页出现两张 follow-up 按钮卡片，preview 与正式域名都已可见。
+- 2026-06-03：在 `white-noise-for-sleep` / `brown-noise-for-sleep` 工具页补上收藏与最近播放入口，不再只有首页能保存或重播常用声音。当前工具页播放器已支持 `Save this sound`、展示本地收藏与最近播放，并可一键重播，先把 SEO 落地页到复播路径收口。
+- 验证结果：已完成 `npm run build`，并通过 Cloudflare Pages 部署到 `https://master.sleepfast.pages.dev`（preview）与 `https://d1649ffd.sleepfast.pages.dev`（本次部署 URL）。浏览器快照已确认 preview 与本次部署 URL 的 `white-noise-for-sleep` 页面出现 `Save this sound`，正式域名 `https://sleepfast.pages.dev/white-noise-for-sleep` 当前仍停在旧生产版本，尚未显示该入口，需等待 production 域名继续切换。
+- 2026-06-03：新增 `/rain-sounds-for-sleep` 工具页，直接承接“rain sounds for sleeping”高意图搜索，并复用现有 Rain on Window 场景、10-60 分钟 timer、收藏与最近播放闭环。当前页首屏即可播放并能回流首页，先把 SEO 规划里的雨声入口补齐。
+- 验证结果：已完成 `npm run build`，并通过 Cloudflare Pages 部署到 `https://sleepfast.pages.dev/rain-sounds-for-sleep`；浏览器快照已确认正式域名出现 `Play rain sounds now`、`Save this sound` 与 10-60 分钟 timer，生产环境已可直接承接该雨声音页流量。
+- 2026-06-03：新增 `/ocean-sounds-for-sleep` 工具页，直接承接“ocean sounds for sleep”高意图搜索，并复用现有 Ocean Waves 场景、10-60 分钟 timer、收藏与最近播放闭环。当前页首屏即可播放并能回流首页，补齐高意图声音页矩阵里的海浪入口。
+- 验证结果：已完成 `npm run build`，并通过 Cloudflare Pages 以 `--branch main` 补发 production 部署到 `https://sleepfast.pages.dev/ocean-sounds-for-sleep`；浏览器快照已确认正式域名出现 `Play ocean sounds now`、`Save this sound` 与 10-60 分钟 timer，之前 production 仍回落首页的问题已收口。
+- 2026-06-03：把 `/sleep-breathing-exercise` 继续反向接入 `/wake-up-at-3am` 与 `/mind-racing-at-night`。当前两类问题页首屏播放器下方都新增了“先做 4-7-8 breathing reset”桥接卡片，用户不必先回首页就能先放松、再进入对应声音场景。
+- 验证结果：已完成 `npm run build`，并通过 Cloudflare Pages production 部署到 `https://sleepfast.pages.dev`（本次部署 URL `https://4425ef18.sleepfast.pages.dev`）；浏览器快照已确认正式域名两个问题页首屏都出现 `Open the breathing reset` 入口，桥接卡片已上线。
+- 2026-06-03：新增 `/sleep-better-tonight` 问题场景页，直接承接更宽泛的“sleep better tonight”搜索与转化意图。当前首屏可直接开启 Rain on Window 30 分钟重置，也可切换 Brown Noise / Ocean Waves，并在同一屏内桥接到 `/sleep-breathing-exercise` 与 `/sleep-calculator`，先把“今晚状态不对 → 选一个声音 → 必要时进入呼吸/时间工具”的最低闭环补齐。
+- 验证结果：已完成 `npm run build`，并通过 Cloudflare Pages production 部署到 `https://sleepfast.pages.dev/sleep-better-tonight`（本次部署 URL `https://0c1cf30f.sleepfast.pages.dev`）；浏览器快照已确认正式域名出现 `Start sleeping better tonight`、`Open the breathing reset` 与 `Use the sleep calculator`，双桥接入口已上线。

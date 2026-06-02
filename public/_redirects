@@ -4,6 +4,8 @@
 /brown-noise-for-sleep/*   /brown-noise-for-sleep/index.html     200
 /sleep-calculator          /sleep-calculator/index.html          200
 /sleep-calculator/*        /sleep-calculator/index.html          200
+/nap-calculator            /nap-calculator/index.html            200
+/nap-calculator/*          /nap-calculator/index.html            200
 /fall-asleep-fast          /fall-asleep-fast/index.html          200
 /fall-asleep-fast/*        /fall-asleep-fast/index.html          200
 /wake-up-at-3am            /wake-up-at-3am/index.html            200
