@@ -3129,6 +3129,16 @@ const App = () => {
                 </p>
               </div>
 
+              <div className="utility-row utility-row-saved">
+                <button
+                  type="button"
+                  className={`utility-chip ${favoriteSoundIds.includes(selectedSound) ? 'active' : ''}`}
+                  onClick={() => toggleFavoriteSound(selectedSound)}
+                >
+                  {favoriteSoundIds.includes(selectedSound) ? 'Saved for later' : 'Save this sound'}
+                </button>
+              </div>
+
               <div className="sleep-reset-list">
                 <button
                   type="button"
@@ -3219,6 +3229,44 @@ const App = () => {
                         </button>
                       </div>
                       <span className="custom-timer-note">Use 1–180 minutes for naps, longer drift, or travel recovery.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="saved-panel glass-subpanel">
+                  <div className="saved-panel-section">
+                    <div className="saved-panel-header">
+                      <strong>Saved for later</strong>
+                      <span>Keep grounding sounds one tap away.</span>
+                    </div>
+                    <div className="saved-chip-row">
+                      {favoriteSounds.length > 0 ? (
+                        favoriteSounds.map((sound) => (
+                          <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                            {sound.name}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="saved-empty-state">Save the sound that quiets the room fastest so it is ready tomorrow night.</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="saved-panel-section">
+                    <div className="saved-panel-header">
+                      <strong>Recent tonight</strong>
+                      <span>Restart the last room that helped your thoughts slow down.</span>
+                    </div>
+                    <div className="saved-chip-row">
+                      {recentSounds.length > 0 ? (
+                        recentSounds.map((sound) => (
+                          <button key={sound.id} type="button" className="saved-sound-chip" onClick={() => void startSavedSound(sound.id)}>
+                            {sound.name}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="saved-empty-state">Play one sound once and it will show up here for faster mental-noise resets.</p>
+                      )}
                     </div>
                   </div>
                 </div>

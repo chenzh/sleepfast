@@ -242,6 +242,8 @@ Sleepfast 现在不缺继续雕首页的审美能力，缺的是把首页变成�
 **是否让网站更容易拿流量、承接体验、形成转化。**
 
 ## 10. 最新推进记录
+- 2026-06-03：把收藏 / 最近播放闭环补到 `/mind-racing-at-night`。当前用户可在 racing thoughts 场景页直接保存当前 brown / white noise，并从同页一键重播最近或收藏过的声音，减少“思绪停不下时还要回首页找常用声音”的断点。
+- 验证结果：待本次 `npm run build`、Cloudflare Pages production 部署与正式域名核验，确认 `/mind-racing-at-night` 出现 `Save this sound`、Saved for later 与 Recent tonight。
 - 2026-06-03：把收藏 / 最近播放闭环从首页和单声音工具页扩到 `/fall-asleep-fast` 与 `/wake-up-at-3am`。用户现在可在问题场景页直接保存当前声音，并从同页一键重播最近或收藏过的声音，减少“问题词落地后还要回首页找常用声音”的断点。
 - 2026-06-02：首页首屏动态背景改为随当前声音切换场景，不再固定海浪。Rain on Window 进入雨夜窗景，Ocean Waves 保持海面，Brown / White Noise 切到更克制的深空层，首屏视听绑定更接近 PRD 的“场景化唯美动态视频背景系统”。
 - 验证结果：已完成 `npm run build`，并通过 Cloudflare Pages 部署到 `https://master.sleepfast.pages.dev`。浏览器快照已确认首屏默认文案与当前声音为 `Rain on Window`，用于收口首页“声音-视觉”一致性。

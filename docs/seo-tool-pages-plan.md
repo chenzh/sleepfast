@@ -102,7 +102,7 @@
 #### 10. `/mind-racing-at-night`
 - 主关键词：mind racing at night
 - 页面结构：问题解释 + 棕噪音/呼吸练习 + FAQ
-- 当前状态：已在首屏播放器下补上通往 `/sleep-breathing-exercise` 的桥接入口，先把“思绪停不下 → 先呼吸放松 → 再进棕噪音”路径收口
+- 当前状态：已在首屏播放器下补上通往 `/sleep-breathing-exercise` 的桥接入口，并已新增保存当前声音 + 一键重播收藏/最近播放入口，先把“思绪停不下 → 先呼吸放松 / 保存常用声音 → 再进棕噪音”路径收口
 
 #### 11. `/wake-up-at-3am`
 - 主关键词：wake up at 3am can’t fall back asleep
